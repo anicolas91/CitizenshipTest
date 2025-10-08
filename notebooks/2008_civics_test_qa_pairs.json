@@ -139,8 +139,8 @@
   {
     "question": "Who is one of your state’s U.S. Senators now?",
     "answers": [
-      "AL: Tommy Tuberville",
       "AL: Katie Britt",
+      "AL: Tommy Tuberville",
       "AK: Lisa Murkowski",
       "AK: Dan Sullivan",
       "AZ: Mark Kelly",
@@ -696,7 +696,13 @@
       "WI: Glenn Grothman",
       "WI: Tom Tiffany",
       "WI: Tony Wied",
-      "WY: Harriet Hageman"
+      "WY: Harriet Hageman",
+      "DC: no voting Representatives",
+      "PR: no voting Representatives",
+      "GU: no voting Representatives",
+      "AS: no voting Representatives",
+      "VI: no voting Representatives",
+      "MP: no voting Representatives"
     ]
   },
   {
@@ -893,12 +899,12 @@
       "WV: Patrick Morrisey",
       "WI: Tony Evers",
       "WY: Mark Gordon",
-      "DC: no Governor",
-      "PR: no Governor",
-      "GU: no Governor",
-      "AS: no Governor",
-      "VI: no Governor",
-      "MP: no Governor"
+      "AS: Pula Nikolao Pula",
+      "GU: Lou Leon Guerrero",
+      "MP: David M. Apatang",
+      "PR: Jenniffer González-Colón",
+      "VI: Albert Bryan",
+      "DC: no Governor"
     ]
   },
   {
@@ -926,7 +932,7 @@
       "MD: Annapolis",
       "MA: Boston",
       "MI: Lansing",
-      "MN: Saint Paul",
+      "MN: St. Paul",
       "MS: Jackson",
       "MO: Jefferson City",
       "MT: Helena",
@@ -954,12 +960,12 @@
       "WV: Charleston",
       "WI: Madison",
       "WY: Cheyenne",
-      "DC: Washington, D.C.",
-      "PR: San Juan",
-      "GU: Hagåtña",
       "AS: Pago Pago",
+      "GU: Hagåtña",
+      "MP: Saipan",
+      "PR: San Juan",
       "VI: Charlotte Amalie",
-      "MP: Saipan"
+      "DC: no capital (the entire district is the capital — Washington, D.C.)"
     ]
   },
   {

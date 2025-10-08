@@ -270,7 +270,13 @@
       "WI: Ron Johnson",
       "WI: Tammy Baldwin",
       "WY: John Barrasso",
-      "WY: Cynthia Lummis"
+      "WY: Cynthia Lummis",
+      "DC: no Senators",
+      "PR: no Senators",
+      "GU: no Senators",
+      "AS: no Senators",
+      "VI: no Senators",
+      "MP: no Senators"
     ]
   },
   {
@@ -742,12 +748,12 @@
       "WI: Tom Tiffany",
       "WI: Tony Wied",
       "WY: Harriet Hageman",
-      "DC: no Representatives",
-      "PR: no Representatives",
-      "GU: no Representatives",
-      "AS: no Representatives",
-      "VI: no Representatives",
-      "MP: no Representatives"
+      "DC: no voting Representatives",
+      "PR: no voting Representatives",
+      "GU: no voting Representatives",
+      "AS: no voting Representatives",
+      "VI: no voting Representatives",
+      "MP: no voting Representatives"
     ]
   },
   {
@@ -1041,12 +1047,12 @@
       "WV: Patrick Morrisey",
       "WI: Tony Evers",
       "WY: Mark Gordon",
-      "DC: no Governor",
-      "PR: no Governor",
-      "GU: no Governor",
-      "AS: no Governor",
-      "VI: no Governor",
-      "MP: no Governor"
+      "PR: Jenniffer González-Colón",
+      "GU: Lou Leon Guerrero",
+      "AS: Pula Nikolao Pula",
+      "MP: David M. Apatang",
+      "VI: Albert Bryan",
+      "DC: no Governor"
     ]
   },
   {
@@ -1074,7 +1080,7 @@
       "MD: Annapolis",
       "MA: Boston",
       "MI: Lansing",
-      "MN: Saint Paul",
+      "MN: St. Paul",
       "MS: Jackson",
       "MO: Jefferson City",
       "MT: Helena",
@@ -1102,9 +1108,9 @@
       "WV: Charleston",
       "WI: Madison",
       "WY: Cheyenne",
-      "DC: Washington",
+      "DC: no capital (the entire district is the capital — Washington, D.C.)",
       "PR: San Juan",
-      "GU: Hagatna",
+      "GU: Hagåtña",
       "AS: Pago Pago",
       "VI: Charlotte Amalie",
       "MP: Saipan"
