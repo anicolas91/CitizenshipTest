@@ -21,7 +21,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - Retrieval flow
   - 0 points: No knowledge base or LLM is used
   - 1 point: No knowledge base is used, and the LLM is queried directly
-  - <u>**2 points: Both a knowledge base and an LLM are used in the flow**</u> &rarr; Used Qdrant to embed data from a civics guide handbook, and used RAG to add context to the LLM query.
+  - <u>**2 points: Both a knowledge base and an LLM are used in the flow**</u> &rarr; Used Qdrant+OpenAI to embed enable data search from a civics guide handbook, and used that as the context to an LLM query, resulting in RAG.
 - Retrieval evaluation
   - 0 points: No evaluation of retrieval is provided
   - 1 point: Only one retrieval approach is evaluated
