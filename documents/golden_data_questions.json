@@ -1,0 +1,682 @@
+[
+  {
+    "uuid": "9bc5d2af-ee86-4ec8-8f31-b96b360af593",
+    "question": "What year was the U.S. Constitution written?"
+  },
+  {
+    "uuid": "9bc5d2af-ee86-4ec8-8f31-b96b360af593",
+    "question": "Who were some of the famous leaders at the Constitutional Convention?"
+  },
+  {
+    "uuid": "9bc5d2af-ee86-4ec8-8f31-b96b360af593",
+    "question": "How many amendments are there to the Constitution?"
+  },
+  {
+    "uuid": "9bc5d2af-ee86-4ec8-8f31-b96b360af593",
+    "question": "What does the Preamble of the Constitution explain?"
+  },
+  {
+    "uuid": "9bc5d2af-ee86-4ec8-8f31-b96b360af593",
+    "question": "What does self-government mean in the context of the Constitution?"
+  },
+  {
+    "uuid": "64226618-68ac-4261-92fc-56588aa38775",
+    "question": "What are the three branches of the U.S. government?"
+  },
+  {
+    "uuid": "64226618-68ac-4261-92fc-56588aa38775",
+    "question": "Who is in charge of the Executive Branch?"
+  },
+  {
+    "uuid": "64226618-68ac-4261-92fc-56588aa38775",
+    "question": "What are the two parts of the U.S. Congress?"
+  },
+  {
+    "uuid": "64226618-68ac-4261-92fc-56588aa38775",
+    "question": "What is the role of the President's Cabinet?"
+  },
+  {
+    "uuid": "64226618-68ac-4261-92fc-56588aa38775",
+    "question": "Which court is considered the highest in the U.S.?"
+  },
+  {
+    "uuid": "8295934d-7081-4014-badc-a93319c1dfb3",
+    "question": "What is the purpose of separating powers in the government?"
+  },
+  {
+    "uuid": "8295934d-7081-4014-badc-a93319c1dfb3",
+    "question": "Who makes federal laws according to the Constitution?"
+  },
+  {
+    "uuid": "8295934d-7081-4014-badc-a93319c1dfb3",
+    "question": "How does the Executive Branch interact with federal laws?"
+  },
+  {
+    "uuid": "8295934d-7081-4014-badc-a93319c1dfb3",
+    "question": "What powers does the federal government have under the Constitution?"
+  },
+  {
+    "uuid": "8295934d-7081-4014-badc-a93319c1dfb3",
+    "question": "What is a treaty and why does the federal government sign them?"
+  },
+  {
+    "uuid": "24040798-5bc9-445f-91bf-659cbee1b9c5",
+    "question": "What are the three branches of state government as outlined in the Constitution?"
+  },
+  {
+    "uuid": "24040798-5bc9-445f-91bf-659cbee1b9c5",
+    "question": "Who is responsible for the executive branch in each state?"
+  },
+  {
+    "uuid": "24040798-5bc9-445f-91bf-659cbee1b9c5",
+    "question": "How many states must approve an amendment for it to be added to the Constitution?"
+  },
+  {
+    "uuid": "24040798-5bc9-445f-91bf-659cbee1b9c5",
+    "question": "What powers do state governments have regarding education?"
+  },
+  {
+    "uuid": "24040798-5bc9-445f-91bf-659cbee1b9c5",
+    "question": "Why does Washington, D.C. not have a governor?"
+  },
+  {
+    "uuid": "5f6b8873-27d2-4d1b-a047-a3679ce24dcc",
+    "question": "What was required for the Constitution to become law in the United States?"
+  },
+  {
+    "uuid": "5f6b8873-27d2-4d1b-a047-a3679ce24dcc",
+    "question": "How many original states needed to approve the Constitution?"
+  },
+  {
+    "uuid": "5f6b8873-27d2-4d1b-a047-a3679ce24dcc",
+    "question": "When did New Hampshire approve the Constitution?"
+  },
+  {
+    "uuid": "5f6b8873-27d2-4d1b-a047-a3679ce24dcc",
+    "question": "What are the first 10 amendments to the Constitution called?"
+  },
+  {
+    "uuid": "5f6b8873-27d2-4d1b-a047-a3679ce24dcc",
+    "question": "How many amendments are there in total to the Constitution?"
+  },
+  {
+    "uuid": "3992437a-8fe0-454c-8901-9ada0fafd48a",
+    "question": "What is another name for the Legislative Branch of the U.S. government?"
+  },
+  {
+    "uuid": "3992437a-8fe0-454c-8901-9ada0fafd48a",
+    "question": "How many voting members are there in the House of Representatives?"
+  },
+  {
+    "uuid": "3992437a-8fe0-454c-8901-9ada0fafd48a",
+    "question": "What agreement did the Founders reach regarding the representation of states in Congress?"
+  },
+  {
+    "uuid": "3992437a-8fe0-454c-8901-9ada0fafd48a",
+    "question": "Which state has the most voting members in the House of Representatives?"
+  },
+  {
+    "uuid": "3992437a-8fe0-454c-8901-9ada0fafd48a",
+    "question": "How are representatives in the House of Representatives elected?"
+  },
+  {
+    "uuid": "dfb1e0a0-a42e-48b1-b89d-fe6e228b07bc",
+    "question": "What is the age requirement to run for the House of Representatives?"
+  },
+  {
+    "uuid": "dfb1e0a0-a42e-48b1-b89d-fe6e228b07bc",
+    "question": "How often are members of the House of Representatives elected?"
+  },
+  {
+    "uuid": "dfb1e0a0-a42e-48b1-b89d-fe6e228b07bc",
+    "question": "What is the total number of U.S. Senators?"
+  },
+  {
+    "uuid": "dfb1e0a0-a42e-48b1-b89d-fe6e228b07bc",
+    "question": "Where can I find the name of my U.S. Senators?"
+  },
+  {
+    "uuid": "dfb1e0a0-a42e-48b1-b89d-fe6e228b07bc",
+    "question": "Why does Washington, D.C. not have any senators?"
+  },
+  {
+    "uuid": "99075a2c-0055-40c7-83e8-ef2c07012d88",
+    "question": "What is the role of Congress in making federal laws?"
+  },
+  {
+    "uuid": "99075a2c-0055-40c7-83e8-ef2c07012d88",
+    "question": "How many votes are needed in the House of Representatives for a bill to pass?"
+  },
+  {
+    "uuid": "99075a2c-0055-40c7-83e8-ef2c07012d88",
+    "question": "What happens to a bill if the President vetoes it?"
+  },
+  {
+    "uuid": "99075a2c-0055-40c7-83e8-ef2c07012d88",
+    "question": "What is a bill in the context of U.S. lawmaking?"
+  },
+  {
+    "uuid": "99075a2c-0055-40c7-83e8-ef2c07012d88",
+    "question": "How many U.S. Senators must support a bill for it to pass the Senate?"
+  },
+  {
+    "uuid": "b0a66569-c6c1-40b5-a12c-cafbbcf167a0",
+    "question": "What is the main role of the President in the Executive Branch?"
+  },
+  {
+    "uuid": "b0a66569-c6c1-40b5-a12c-cafbbcf167a0",
+    "question": "Who are the primary members of the President's Cabinet?"
+  },
+  {
+    "uuid": "b0a66569-c6c1-40b5-a12c-cafbbcf167a0",
+    "question": "Why were the Founders concerned about the power of the President?"
+  },
+  {
+    "uuid": "b0a66569-c6c1-40b5-a12c-cafbbcf167a0",
+    "question": "What is the significance of the rule of law in relation to the President?"
+  },
+  {
+    "uuid": "b0a66569-c6c1-40b5-a12c-cafbbcf167a0",
+    "question": "What is the title of the leader of the Department of Justice?"
+  },
+  {
+    "uuid": "d3a729ff-12ab-45fd-ac72-75326e1a1ba9",
+    "question": "What is the role of the President in relation to the military?"
+  },
+  {
+    "uuid": "d3a729ff-12ab-45fd-ac72-75326e1a1ba9",
+    "question": "How many times can a person be elected as President?"
+  },
+  {
+    "uuid": "d3a729ff-12ab-45fd-ac72-75326e1a1ba9",
+    "question": "What are the two major political parties in the United States?"
+  },
+  {
+    "uuid": "d3a729ff-12ab-45fd-ac72-75326e1a1ba9",
+    "question": "What happens if both the President and Vice President can no longer serve?"
+  },
+  {
+    "uuid": "d3a729ff-12ab-45fd-ac72-75326e1a1ba9",
+    "question": "What is the age requirement to run for President?"
+  },
+  {
+    "uuid": "f8b445db-7bf3-49d6-beb7-f15db62403ff",
+    "question": "What are the main components of the Judicial Branch?"
+  },
+  {
+    "uuid": "f8b445db-7bf3-49d6-beb7-f15db62403ff",
+    "question": "Who nominates federal judges to the Supreme Court?"
+  },
+  {
+    "uuid": "f8b445db-7bf3-49d6-beb7-f15db62403ff",
+    "question": "Why are federal judges not elected to office?"
+  },
+  {
+    "uuid": "f8b445db-7bf3-49d6-beb7-f15db62403ff",
+    "question": "What is the significance of the separation of powers in the context of federal judges?"
+  },
+  {
+    "uuid": "f8b445db-7bf3-49d6-beb7-f15db62403ff",
+    "question": "What is the role of the U.S. Senate in the appointment of federal judges?"
+  },
+  {
+    "uuid": "d3614551-7a0d-4335-a8c5-404f5715e20e",
+    "question": "What is the main role of the Judicial Branch in the United States?"
+  },
+  {
+    "uuid": "d3614551-7a0d-4335-a8c5-404f5715e20e",
+    "question": "How many justices are there on the Supreme Court?"
+  },
+  {
+    "uuid": "d3614551-7a0d-4335-a8c5-404f5715e20e",
+    "question": "What happens if someone believes a law does not comply with the Constitution?"
+  },
+  {
+    "uuid": "d3614551-7a0d-4335-a8c5-404f5715e20e",
+    "question": "Who leads the discussions among the Supreme Court justices?"
+  },
+  {
+    "uuid": "d3614551-7a0d-4335-a8c5-404f5715e20e",
+    "question": "What constitutes a majority vote among the Supreme Court justices?"
+  },
+  {
+    "uuid": "422bd820-9302-4b31-a795-5bf7d444f076",
+    "question": "What are the main topics covered in the chapter on rights and responsibilities?"
+  },
+  {
+    "uuid": "422bd820-9302-4b31-a795-5bf7d444f076",
+    "question": "Who were the authors of the Federalist Papers?"
+  },
+  {
+    "uuid": "422bd820-9302-4b31-a795-5bf7d444f076",
+    "question": "Why did some people oppose the Constitution in 1787?"
+  },
+  {
+    "uuid": "422bd820-9302-4b31-a795-5bf7d444f076",
+    "question": "What is the significance of the Bill of Rights?"
+  },
+  {
+    "uuid": "422bd820-9302-4b31-a795-5bf7d444f076",
+    "question": "What is the difference between the rights of U.S. citizens and those living in the United States?"
+  },
+  {
+    "uuid": "afb66669-b182-46ab-946b-407b84b91d75",
+    "question": "What is the significance of the Federalist Papers in relation to the Constitution?"
+  },
+  {
+    "uuid": "afb66669-b182-46ab-946b-407b84b91d75",
+    "question": "When were the first 10 amendments added to the Constitution?"
+  },
+  {
+    "uuid": "afb66669-b182-46ab-946b-407b84b91d75",
+    "question": "What are the five rights protected by the First Amendment?"
+  },
+  {
+    "uuid": "afb66669-b182-46ab-946b-407b84b91d75",
+    "question": "Who is required to register for the Selective Service in the United States?"
+  },
+  {
+    "uuid": "afb66669-b182-46ab-946b-407b84b91d75",
+    "question": "What is the last day to submit federal income tax forms in the U.S.?"
+  },
+  {
+    "uuid": "ea7a5006-1567-4b8c-a1ab-09b590e18e59",
+    "question": "What promises do applicants make when taking the Oath of Allegiance?"
+  },
+  {
+    "uuid": "ea7a5006-1567-4b8c-a1ab-09b590e18e59",
+    "question": "What are the eligibility requirements for becoming a naturalized U.S. citizen?"
+  },
+  {
+    "uuid": "ea7a5006-1567-4b8c-a1ab-09b590e18e59",
+    "question": "How does a person become a U.S. citizen by naturalization?"
+  },
+  {
+    "uuid": "ea7a5006-1567-4b8c-a1ab-09b590e18e59",
+    "question": "What must applicants do during the naturalization ceremony?"
+  },
+  {
+    "uuid": "ea7a5006-1567-4b8c-a1ab-09b590e18e59",
+    "question": "What is the age requirement for naturalization in the United States?"
+  },
+  {
+    "uuid": "480a7e50-de3c-4a63-98f4-eb8a30772832",
+    "question": "What are the 13 original states of the United States?"
+  },
+  {
+    "uuid": "480a7e50-de3c-4a63-98f4-eb8a30772832",
+    "question": "When did Hawaii become the 50th state?"
+  },
+  {
+    "uuid": "480a7e50-de3c-4a63-98f4-eb8a30772832",
+    "question": "How many territories does the U.S. have?"
+  },
+  {
+    "uuid": "480a7e50-de3c-4a63-98f4-eb8a30772832",
+    "question": "What does each star on the American flag represent?"
+  },
+  {
+    "uuid": "480a7e50-de3c-4a63-98f4-eb8a30772832",
+    "question": "Where are the 13 original states located?"
+  },
+  {
+    "uuid": "c8c331a3-7e86-4f85-85f9-5aad14e08159",
+    "question": "What countries border the United States?"
+  },
+  {
+    "uuid": "c8c331a3-7e86-4f85-85f9-5aad14e08159",
+    "question": "How many states border Canada?"
+  },
+  {
+    "uuid": "c8c331a3-7e86-4f85-85f9-5aad14e08159",
+    "question": "What are the names of the two longest rivers in the U.S.?"
+  },
+  {
+    "uuid": "c8c331a3-7e86-4f85-85f9-5aad14e08159",
+    "question": "Which ocean is located on the East Coast of the United States?"
+  },
+  {
+    "uuid": "c8c331a3-7e86-4f85-85f9-5aad14e08159",
+    "question": "Who is Washington, D.C. named after?"
+  },
+  {
+    "uuid": "7ebc0065-3fb9-4d6f-8563-2bb3cbac4ba0",
+    "question": "What period does the Colonial Period cover?"
+  },
+  {
+    "uuid": "7ebc0065-3fb9-4d6f-8563-2bb3cbac4ba0",
+    "question": "Who were the first Europeans to send ships across the Atlantic Ocean?"
+  },
+  {
+    "uuid": "7ebc0065-3fb9-4d6f-8563-2bb3cbac4ba0",
+    "question": "How long did Native Americans live in the Americas before European arrival?"
+  },
+  {
+    "uuid": "7ebc0065-3fb9-4d6f-8563-2bb3cbac4ba0",
+    "question": "What were some of the ways Native American tribes obtained food?"
+  },
+  {
+    "uuid": "7ebc0065-3fb9-4d6f-8563-2bb3cbac4ba0",
+    "question": "Which European countries created colonies in the Americas after Spain?"
+  },
+  {
+    "uuid": "90de8a28-5224-40b9-a0e3-a7903fd5dbcf",
+    "question": "What was the population of Native Americans in North America before European arrival?"
+  },
+  {
+    "uuid": "90de8a28-5224-40b9-a0e3-a7903fd5dbcf",
+    "question": "When did England establish its first permanent settlement in North America?"
+  },
+  {
+    "uuid": "90de8a28-5224-40b9-a0e3-a7903fd5dbcf",
+    "question": "What crops did the colonists in Jamestown begin to grow after their initial struggles?"
+  },
+  {
+    "uuid": "90de8a28-5224-40b9-a0e3-a7903fd5dbcf",
+    "question": "Who were the first group of enslaved people brought to Jamestown?"
+  },
+  {
+    "uuid": "90de8a28-5224-40b9-a0e3-a7903fd5dbcf",
+    "question": "What were some reasons colonists settled in North America?"
+  },
+  {
+    "uuid": "2b560296-0ddb-4648-b0ed-694d4185c6eb",
+    "question": "What year did the Pilgrims establish the colony of Massachusetts?"
+  },
+  {
+    "uuid": "2b560296-0ddb-4648-b0ed-694d4185c6eb",
+    "question": "Why did many colonists come to North America?"
+  },
+  {
+    "uuid": "2b560296-0ddb-4648-b0ed-694d4185c6eb",
+    "question": "When did the American Revolutionary War begin and end?"
+  },
+  {
+    "uuid": "2b560296-0ddb-4648-b0ed-694d4185c6eb",
+    "question": "What was the purpose of the colonial congress in each colony?"
+  },
+  {
+    "uuid": "2b560296-0ddb-4648-b0ed-694d4185c6eb",
+    "question": "What led to the colonists' dissatisfaction with Great Britain in the 1760s?"
+  },
+  {
+    "uuid": "d973f715-1210-4880-922b-587a723cd8b4",
+    "question": "What was the main reason colonists protested against taxes imposed by Great Britain?"
+  },
+  {
+    "uuid": "d973f715-1210-4880-922b-587a723cd8b4",
+    "question": "Who was appointed as the general of the colonial army during the American Revolutionary War?"
+  },
+  {
+    "uuid": "d973f715-1210-4880-922b-587a723cd8b4",
+    "question": "When was the Declaration of Independence adopted?"
+  },
+  {
+    "uuid": "d973f715-1210-4880-922b-587a723cd8b4",
+    "question": "What rights did Thomas Jefferson state everyone has in the Declaration of Independence?"
+  },
+  {
+    "uuid": "d973f715-1210-4880-922b-587a723cd8b4",
+    "question": "Which states were part of the 13 original colonies that became the first states of the United States?"
+  },
+  {
+    "uuid": "19618272-ac5f-4468-9a68-f80d590debd2",
+    "question": "When did the fighting between the United States and Great Britain officially stop?"
+  },
+  {
+    "uuid": "19618272-ac5f-4468-9a68-f80d590debd2",
+    "question": "What significant event took place at the Battle of Yorktown?"
+  },
+  {
+    "uuid": "19618272-ac5f-4468-9a68-f80d590debd2",
+    "question": "Who negotiated the treaty with Great Britain in 1783?"
+  },
+  {
+    "uuid": "19618272-ac5f-4468-9a68-f80d590debd2",
+    "question": "What did Great Britain acknowledge in the treaty signed in 1783?"
+  },
+  {
+    "uuid": "19618272-ac5f-4468-9a68-f80d590debd2",
+    "question": "In what year was the American Revolutionary War officially concluded?"
+  },
+  {
+    "uuid": "4ffcd834-8dc5-4805-9cd6-36dc484f4cbf",
+    "question": "What was the purpose of the Constitutional Convention?"
+  },
+  {
+    "uuid": "4ffcd834-8dc5-4805-9cd6-36dc484f4cbf",
+    "question": "Who were some of the key leaders advocating for a new government?"
+  },
+  {
+    "uuid": "4ffcd834-8dc5-4805-9cd6-36dc484f4cbf",
+    "question": "When was the Constitution written?"
+  },
+  {
+    "uuid": "4ffcd834-8dc5-4805-9cd6-36dc484f4cbf",
+    "question": "What are the Federalist Papers?"
+  },
+  {
+    "uuid": "4ffcd834-8dc5-4805-9cd6-36dc484f4cbf",
+    "question": "Who was the first President of the United States and when did he serve?"
+  },
+  {
+    "uuid": "5eaee45b-f784-4f39-9c29-b26c1915e208",
+    "question": "What was the significance of the year 1787 in U.S. history?"
+  },
+  {
+    "uuid": "5eaee45b-f784-4f39-9c29-b26c1915e208",
+    "question": "How did the United States acquire the Louisiana Territory?"
+  },
+  {
+    "uuid": "5eaee45b-f784-4f39-9c29-b26c1915e208",
+    "question": "What were the names of the five Native American nations involved in the Trail of Tears?"
+  },
+  {
+    "uuid": "5eaee45b-f784-4f39-9c29-b26c1915e208",
+    "question": "Why did France sell the Louisiana Territory to the United States?"
+  },
+  {
+    "uuid": "5eaee45b-f784-4f39-9c29-b26c1915e208",
+    "question": "How many American Indian tribes are there in the United States today?"
+  },
+  {
+    "uuid": "23f6809e-ea28-41a4-9fcf-4230f630948a",
+    "question": "What year did Texas become a state in the United States?"
+  },
+  {
+    "uuid": "23f6809e-ea28-41a4-9fcf-4230f630948a",
+    "question": "Who fought for independence from Mexico to become its own country?"
+  },
+  {
+    "uuid": "23f6809e-ea28-41a4-9fcf-4230f630948a",
+    "question": "What was the outcome of the Mexican-American War in 1848?"
+  },
+  {
+    "uuid": "23f6809e-ea28-41a4-9fcf-4230f630948a",
+    "question": "Which states were formed from the territory gained from Mexico after the war?"
+  },
+  {
+    "uuid": "23f6809e-ea28-41a4-9fcf-4230f630948a",
+    "question": "What major conflict arose in the United States as a result of expansion into the West?"
+  },
+  {
+    "uuid": "a8716f92-7020-4b94-aacb-3cf7e3a28cfe",
+    "question": "What economic dependence did southern states have during the 1800s?"
+  },
+  {
+    "uuid": "a8716f92-7020-4b94-aacb-3cf7e3a28cfe",
+    "question": "Who were the key figures advocating for civil rights in the 1800s?"
+  },
+  {
+    "uuid": "a8716f92-7020-4b94-aacb-3cf7e3a28cfe",
+    "question": "When did the Civil War begin and end?"
+  },
+  {
+    "uuid": "a8716f92-7020-4b94-aacb-3cf7e3a28cfe",
+    "question": "What was the main conflict between the North and South leading to the Civil War?"
+  },
+  {
+    "uuid": "a8716f92-7020-4b94-aacb-3cf7e3a28cfe",
+    "question": "What did Susan B. Anthony fight for in addition to ending slavery?"
+  },
+  {
+    "uuid": "5b2ba9e4-7471-4ead-aa94-6571f5a7c34b",
+    "question": "What was Abraham Lincoln's role during the Civil War?"
+  },
+  {
+    "uuid": "5b2ba9e4-7471-4ead-aa94-6571f5a7c34b",
+    "question": "When did Abraham Lincoln serve as President of the United States?"
+  },
+  {
+    "uuid": "5b2ba9e4-7471-4ead-aa94-6571f5a7c34b",
+    "question": "What did the Emancipation Proclamation accomplish?"
+  },
+  {
+    "uuid": "5b2ba9e4-7471-4ead-aa94-6571f5a7c34b",
+    "question": "What significant event happened in April 1865 related to the Civil War?"
+  },
+  {
+    "uuid": "5b2ba9e4-7471-4ead-aa94-6571f5a7c34b",
+    "question": "What is Juneteenth and why is it celebrated?"
+  },
+  {
+    "uuid": "3d9e723d-c875-4148-ac1b-3f9f87fc5878",
+    "question": "What was the time period during which World War I was fought?"
+  },
+  {
+    "uuid": "3d9e723d-c875-4148-ac1b-3f9f87fc5878",
+    "question": "Who was the President of the United States during World War I?"
+  },
+  {
+    "uuid": "3d9e723d-c875-4148-ac1b-3f9f87fc5878",
+    "question": "What economic system is described as a 'capitalist economy' in the text?"
+  },
+  {
+    "uuid": "3d9e723d-c875-4148-ac1b-3f9f87fc5878",
+    "question": "What significant event is commemorated on November 11 in the U.S.?"
+  },
+  {
+    "uuid": "3d9e723d-c875-4148-ac1b-3f9f87fc5878",
+    "question": "What were some of the effects of the Great Depression on American society?"
+  },
+  {
+    "uuid": "c5f0679d-e831-4585-a52a-87d2b9056f62",
+    "question": "What years did Franklin Roosevelt serve as President of the United States?"
+  },
+  {
+    "uuid": "c5f0679d-e831-4585-a52a-87d2b9056f62",
+    "question": "Who was the 34th President of the United States?"
+  },
+  {
+    "uuid": "c5f0679d-e831-4585-a52a-87d2b9056f62",
+    "question": "When did the Cold War end?"
+  },
+  {
+    "uuid": "c5f0679d-e831-4585-a52a-87d2b9056f62",
+    "question": "What was the main concern of the United States during the Cold War?"
+  },
+  {
+    "uuid": "c5f0679d-e831-4585-a52a-87d2b9056f62",
+    "question": "Which countries fought alongside the U.S. during World War II?"
+  },
+  {
+    "uuid": "88f9e955-8dad-4884-9162-ff5d4152571a",
+    "question": "What was the main goal of the Civil Rights Movement?"
+  },
+  {
+    "uuid": "88f9e955-8dad-4884-9162-ff5d4152571a",
+    "question": "Who were some key leaders in the Civil Rights Movement?"
+  },
+  {
+    "uuid": "88f9e955-8dad-4884-9162-ff5d4152571a",
+    "question": "When did Congress pass the Civil Rights Act?"
+  },
+  {
+    "uuid": "88f9e955-8dad-4884-9162-ff5d4152571a",
+    "question": "What does the Voting Rights Act prohibit?"
+  },
+  {
+    "uuid": "88f9e955-8dad-4884-9162-ff5d4152571a",
+    "question": "How many people died in the September 11, 2001 attacks?"
+  },
+  {
+    "uuid": "0806e7b4-60f4-4a86-aa9d-89de9724c1a2",
+    "question": "What is the significance of the Statue of Liberty in the United States?"
+  },
+  {
+    "uuid": "0806e7b4-60f4-4a86-aa9d-89de9724c1a2",
+    "question": "When was the Statue of Liberty given to the United States?"
+  },
+  {
+    "uuid": "0806e7b4-60f4-4a86-aa9d-89de9724c1a2",
+    "question": "How many people visit the Statue of Liberty each year?"
+  },
+  {
+    "uuid": "0806e7b4-60f4-4a86-aa9d-89de9724c1a2",
+    "question": "What date is inscribed on the tablet held by the Statue of Liberty?"
+  },
+  {
+    "uuid": "0806e7b4-60f4-4a86-aa9d-89de9724c1a2",
+    "question": "What does the Statue of Liberty symbolize?"
+  },
+  {
+    "uuid": "555bc4d1-c2bb-4b42-9deb-63b8e25af77a",
+    "question": "What year did Ellis Island start receiving immigrants?"
+  },
+  {
+    "uuid": "555bc4d1-c2bb-4b42-9deb-63b8e25af77a",
+    "question": "How many immigrants arrived at Ellis Island over 62 years?"
+  },
+  {
+    "uuid": "555bc4d1-c2bb-4b42-9deb-63b8e25af77a",
+    "question": "What is the significance of the colors on the American flag?"
+  },
+  {
+    "uuid": "555bc4d1-c2bb-4b42-9deb-63b8e25af77a",
+    "question": "When was Angel Island operational as an immigration station?"
+  },
+  {
+    "uuid": "555bc4d1-c2bb-4b42-9deb-63b8e25af77a",
+    "question": "What do people do during the Pledge of Allegiance at naturalization ceremonies?"
+  },
+  {
+    "uuid": "b02f547f-8107-49f3-9f1e-8239daa764ae",
+    "question": "What is the title of the national anthem of the United States?"
+  },
+  {
+    "uuid": "b02f547f-8107-49f3-9f1e-8239daa764ae",
+    "question": "Who wrote 'The Star-Spangled Banner'?"
+  },
+  {
+    "uuid": "b02f547f-8107-49f3-9f1e-8239daa764ae",
+    "question": "When is Martin Luther King, Jr. Day celebrated?"
+  },
+  {
+    "uuid": "b02f547f-8107-49f3-9f1e-8239daa764ae",
+    "question": "What event did Martin Luther King, Jr. lead in 1963?"
+  },
+  {
+    "uuid": "b02f547f-8107-49f3-9f1e-8239daa764ae",
+    "question": "Why do we celebrate Presidents' Day?"
+  },
+  {
+    "uuid": "9c0dc6c7-e944-46a1-927d-ab59956792a0",
+    "question": "What does Juneteenth commemorate?"
+  },
+  {
+    "uuid": "9c0dc6c7-e944-46a1-927d-ab59956792a0",
+    "question": "Who issued the Emancipation Proclamation?"
+  },
+  {
+    "uuid": "9c0dc6c7-e944-46a1-927d-ab59956792a0",
+    "question": "When was the Declaration of Independence adopted?"
+  },
+  {
+    "uuid": "9c0dc6c7-e944-46a1-927d-ab59956792a0",
+    "question": "What was Veterans Day originally called?"
+  },
+  {
+    "uuid": "9c0dc6c7-e944-46a1-927d-ab59956792a0",
+    "question": "Why do people celebrate Thanksgiving in the United States?"
+  }
+]
