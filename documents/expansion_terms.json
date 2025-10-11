@@ -1,0 +1,86 @@
+{
+  "constitution": ["constitutional convention", "founding fathers", "ratification", "federalist", "supreme law"],
+  "preamble": ["we the people", "constitution", "founding document"],
+  "amendment": ["bill of rights", "constitutional amendment", "ratification", "change"],
+  "bill of rights": ["first ten amendments", "individual rights", "freedoms", "liberties"],
+  "federalist": ["federalist papers", "ratification", "constitution", "hamilton madison"],
+  
+  "congress": ["legislature", "senate", "house of representatives", "legislative branch", "capitol"],
+  "senate": ["upper house", "senators", "two per state", "legislative"],
+  "house of representatives": ["lower house", "representatives", "congressional districts", "legislative"],
+  "president": ["executive branch", "commander in chief", "cabinet", "chief executive", "white house"],
+  "executive": ["president", "cabinet", "enforce laws", "administration"],
+  "supreme court": ["judicial branch", "judiciary", "judicial review", "highest court", "justices"],
+  "judicial": ["courts", "judges", "interpret laws", "justice system"],
+  "branches": ["separation of powers", "checks and balances", "three branches", "legislative executive judicial"],
+  "checks and balances": ["separation of powers", "branches", "limited government"],
+  
+  "freedom": ["liberty", "rights", "first amendment", "civil liberties"],
+  "speech": ["first amendment", "freedom of expression", "civil liberties"],
+  "religion": ["first amendment", "freedom of worship", "religious liberty"],
+  "press": ["first amendment", "freedom of media", "journalism"],
+  "assembly": ["first amendment", "peaceful protest", "petition"],
+  "rights": ["civil rights", "civil liberties", "freedoms", "bill of rights", "individual rights"],
+  
+  "vote": ["suffrage", "electoral", "election", "ballot", "citizenship"],
+  "voting": ["suffrage", "electoral", "election", "ballot", "franchise"],
+  "election": ["vote", "ballot", "campaign", "electoral", "democracy"],
+  "electoral college": ["presidential election", "electors", "electoral votes"],
+  "suffrage": ["voting rights", "franchise", "right to vote"],
+  
+  "government": ["federal", "democracy", "republic", "governance", "constitutional"],
+  "federal": ["national government", "federalism", "united states"],
+  "state": ["state government", "states rights", "federalism", "governor"],
+  "local": ["city", "county", "municipal", "town", "mayor"],
+  "democracy": ["republic", "self-government", "representative government", "people"],
+  "republic": ["representative democracy", "elected officials", "constitutional"],
+  "representative": ["congressman", "senator", "legislator", "elected official", "democracy"],
+  
+  "declaration": ["independence", "july 4 1776", "thomas jefferson", "unalienable rights"],
+  "independence": ["declaration", "1776", "revolutionary war", "freedom from britain"],
+  "revolutionary war": ["american revolution", "independence", "colonies", "britain"],
+  "civil war": ["slavery", "union", "confederacy", "lincoln", "emancipation"],
+  "emancipation": ["slavery", "lincoln", "civil war", "freed slaves"],
+  
+  "washington": ["first president", "founding father", "revolutionary war", "father of country"],
+  "lincoln": ["civil war", "emancipation", "slavery", "gettysburg"],
+  "jefferson": ["declaration of independence", "third president", "founding father"],
+  "madison": ["constitution", "father of constitution", "bill of rights", "federalist papers"],
+  "franklin": ["founding father", "constitution", "diplomat", "inventor"],
+  
+  "citizen": ["citizenship", "naturalization", "native born", "rights and responsibilities"],
+  "naturalization": ["citizenship", "immigration", "oath of allegiance", "becoming citizen"],
+  "immigration": ["naturalization", "citizenship", "immigrant", "green card"],
+  
+  "political party": ["democrat", "republican", "party system", "elections"],
+  "democrat": ["democratic party", "political party", "liberal"],
+  "republican": ["republican party", "political party", "conservative"],
+  
+  "law": ["legislation", "statute", "legal", "congress", "constitution"],
+  "veto": ["president", "legislative process", "override", "checks and balances"],
+  "impeachment": ["removal from office", "congress", "president", "high crimes"],
+  
+  "tax": ["taxation", "revenue", "irs", "income tax", "congress"],
+  "economy": ["economic", "capitalism", "free market", "trade"],
+  
+  "war": ["military", "armed forces", "conflict", "congress", "commander in chief"],
+  "military": ["armed forces", "army", "navy", "defense", "commander in chief"],
+  
+  "territory": ["territories", "expansion", "states", "acquisition"],
+  "expansion": ["westward", "territory", "manifest destiny", "louisiana purchase"],
+  
+  "flag": ["stars and stripes", "banner", "national symbol", "red white blue"],
+  "national anthem": ["star spangled banner", "francis scott key", "flag"],
+  "capitol": ["congress", "legislative", "washington dc", "building"],
+  "white house": ["president", "executive", "residence", "washington dc"],
+  
+  "native american": ["indian", "indigenous", "tribal", "tribes"],
+  "tribal": ["native american", "sovereignty", "reservation", "indigenous"],
+  
+  "slavery": ["slaves", "emancipation", "civil war", "abolition", "thirteenth amendment"],
+  "civil rights": ["equality", "discrimination", "civil rights movement", "segregation"],
+  "segregation": ["civil rights", "discrimination", "jim crow", "separate but equal"],
+  
+  "women": ["suffrage", "voting rights", "nineteenth amendment", "equality"],
+  "women's suffrage": ["nineteenth amendment", "voting rights", "susan b anthony"]
+}
