@@ -25,7 +25,10 @@ def get_context(
     question: str,
     collection_name: str = DEFAULT_COLLECTION,
     embedding_model: str = DEFAULT_EMBEDDING_MODEL,
-    limit: int = 2
+    limit: int = 2,
+    score_threshold: float = 0.5,
+    query_expansion: bool = False,
+    expansion_file: str = "../documents/expansion_terms.json"
 ) -> str:
     """
     Retrieve relevant context from Qdrant based on a question.
@@ -35,6 +38,9 @@ def get_context(
         collection_name: Name of the Qdrant collection to search
         embedding_model: OpenAI embedding model to use
         limit: Number of top results to return
+        score_threshold: Minimum similarity score (0-1) for results
+        query_expansion: If True, expand query with related civics terms
+        expansion_file: Path to JSON file with expansion terms
     
     Returns:
         Formatted string containing relevant page contexts
@@ -44,6 +50,11 @@ def get_context(
     """
     if not question or not question.strip():
         raise ValueError("Question cannot be empty")
+    
+    # Apply query expansion if requested
+    if query_expansion:
+        from .io import expand_query
+        question = expand_query(question, expansion_file)
     
     # Embed the question
     embedding_response = openai_client.embeddings.create(
@@ -56,7 +67,8 @@ def get_context(
     search_results = qdrant_client.query_points(
         collection_name=collection_name,
         query=question_embedding,
-        limit=limit
+        limit=limit,
+        score_threshold=score_threshold
     )
 
     # Handle empty results

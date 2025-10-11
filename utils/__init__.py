@@ -1,5 +1,11 @@
 from .rag import get_context, llm, rag
-from .io import save_to_json, load_from_json, save_to_txt, load_from_txt
+from .io import (
+    save_to_json,
+    load_from_json,
+    save_to_txt,
+    load_from_txt,
+    expand_query
+)
 
 __all__ = [
     'get_context',
@@ -8,5 +14,6 @@ __all__ = [
     'save_to_json',
     'load_from_json',
     'save_to_txt',
-    'load_from_txt'
+    'load_from_txt',
+    'expand_query'
 ]

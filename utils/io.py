@@ -45,3 +45,39 @@ def load_from_txt(filepath: str) -> str:
     
     print(f"Text loaded from {filepath}")
     return text
+
+def expand_query(question: str, expansion_file: str = "../documents/expansion_terms.json") -> str:
+    """
+    Expand a civics question with relevant contextual terms (rule-based).
+    Based on USCIS civics textbook topics.
+    
+    Args:
+        question: Original question
+        expansion_file: Path to JSON file with expansion terms
+    
+    Returns:
+        Expanded query string with additional context
+    """
+    try:
+        # Load expansion terms from JSON file using existing load_from_json
+        expansion_terms = load_from_json(expansion_file)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        print(f"Warning: Could not load expansion terms: {e}")
+        return question
+    
+    question_lower = question.lower()
+    added_terms = []
+    
+    # Find matching terms
+    for keyword, terms in expansion_terms.items():
+        if keyword in question_lower:
+            # Add up to 2 related terms per matched keyword
+            added_terms.extend(terms[:2])
+    
+    # Remove duplicates and limit to 5 additional terms max
+    added_terms = list(dict.fromkeys(added_terms))[:5]
+    
+    if added_terms:
+        return f"{question} {' '.join(added_terms)}"
+    else:
+        return question
