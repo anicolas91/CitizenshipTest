@@ -28,7 +28,7 @@ def get_context(
     limit: int = 2,
     score_threshold: float = 0.5,
     query_expansion: bool = False,
-    expansion_file: str = "../documents/expansion_terms.json"
+    expansion_terms: dict = None 
 ) -> str:
     """
     Retrieve relevant context from Qdrant based on a question.
@@ -40,7 +40,7 @@ def get_context(
         limit: Number of top results to return
         score_threshold: Minimum similarity score (0-1) for results
         query_expansion: If True, expand query with related civics terms
-        expansion_file: Path to JSON file with expansion terms
+        expansion_terms: Dictionary of expansion terms (loaded externally for efficiency)
     
     Returns:
         Formatted string containing relevant page contexts
@@ -52,9 +52,9 @@ def get_context(
         raise ValueError("Question cannot be empty")
     
     # Apply query expansion if requested
-    if query_expansion:
+    if query_expansion and expansion_terms:
         from .io import expand_query
-        question = expand_query(question, expansion_file)
+        question = expand_query(question, expansion_terms)
     
     # Embed the question
     embedding_response = openai_client.embeddings.create(

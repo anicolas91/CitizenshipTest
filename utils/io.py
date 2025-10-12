@@ -46,23 +46,19 @@ def load_from_txt(filepath: str) -> str:
     print(f"Text loaded from {filepath}")
     return text
 
-def expand_query(question: str, expansion_file: str = "../documents/expansion_terms.json") -> str:
+def expand_query(question: str, expansion_terms: dict) -> str:
     """
     Expand a civics question with relevant contextual terms (rule-based).
     Based on USCIS civics textbook topics.
     
     Args:
         question: Original question
-        expansion_file: Path to JSON file with expansion terms
+        expansion_terms: Dictionary of expansion terms (keyword -> list of related terms)
     
     Returns:
         Expanded query string with additional context
     """
-    try:
-        # Load expansion terms from JSON file using existing load_from_json
-        expansion_terms = load_from_json(expansion_file)
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        print(f"Warning: Could not load expansion terms: {e}")
+    if not expansion_terms:
         return question
     
     question_lower = question.lower()
