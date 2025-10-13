@@ -7,6 +7,25 @@ from .io import (
     expand_query
 )
 
+from .ingestion import (
+    download_civics_documents,
+    parse_clean_qa_pdf,
+    get_officeholder,
+    get_current_governors,
+    get_current_senators,
+    get_current_representatives,
+    get_current_officials_summary,
+    populate_missing_questions,
+    process_civics_tests,
+    extract_clean_text_from_guide
+
+)
+
+from .qdrant import (
+    create_qdrant_collection,
+    create_embedded_points
+)
+
 __all__ = [
     'get_context',
     'llm',
@@ -15,5 +34,17 @@ __all__ = [
     'load_from_json',
     'save_to_txt',
     'load_from_txt',
-    'expand_query'
+    'expand_query',
+    'download_civics_documents',
+    'parse_clean_qa_pdf',
+    'get_officeholder',
+    'get_current_governors',
+    'get_current_senators',
+    'get_current_representatives',
+    'get_current_officials_summary',
+    'populate_missing_questions',
+    'process_civics_tests',
+    'extract_clean_text_from_guide',
+    'create_qdrant_collection',
+    'create_embedded_points'
 ]
