@@ -21,11 +21,11 @@ In the future, the idea is to turn this into a role-playing game where users “
 - Retrieval flow
   - 0 points: No knowledge base or LLM is used
   - 1 point: No knowledge base is used, and the LLM is queried directly
-  - <u>**2 points: Both a knowledge base and an LLM are used in the flow**</u> &rarr; Used Qdrant+OpenAI to embed enable data search from a civics guide handbook, and used that as the context to an LLM query, resulting in RAG.
+  - <u>**2 points: Both a knowledge base and an LLM are used in the flow**</u> → Implemented full RAG pipeline: embedded USCIS civics guide into Qdrant vector database, retrieved relevant context via semantic search, and used OpenAI LLM with retrieved context to generate educational feedback and explanations for quiz answers.
 - Retrieval evaluation
   - 0 points: No evaluation of retrieval is provided
   - 1 point: Only one retrieval approach is evaluated
-  - 2 points: Multiple retrieval approaches are evaluated, and the best one is used
+  - <u>**2 points: Multiple retrieval approaches are evaluated, and the best one is used**</u> &rarr; Systematically evaluated multiple Qdrant retrieval configurations by varying three parameters: result limit (2, 3, 4), score threshold (0.3, 0.5, 0.7), and query expansion (on/off). Compared approaches using Hit Rate and MRR metrics and selected the optimal configuration for production use (limit=4, threshold=0.3, expansion=off). See results [here](./notebooks/04_retrieval_evaluation.ipynb).
 - LLM evaluation
   - 0 points: No evaluation of final LLM output is provided
   - 1 point: Only one approach (e.g., one prompt) is evaluated
