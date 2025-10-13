@@ -14,8 +14,13 @@ import os
 import sys
 from pathlib import Path
 
+# Get project paths
+SCRIPT_DIR = Path(__file__).parent.resolve()  # scripts/
+PROJECT_ROOT = SCRIPT_DIR.parent              # CitizenshipTest/
+DOCUMENTS_DIR = PROJECT_ROOT / 'documents'
+
 # Add project root to path
-sys.path.append(str(Path(__file__).parent.parent))
+sys.path.append(str(PROJECT_ROOT))
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -30,7 +35,6 @@ from utils.qdrant import create_qdrant_collection, create_embedded_points
 
 
 # Configuration
-SAVE_DIR = '../documents/'
 COLLECTION_NAME = 'usa_civics_guide'
 EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_DIMENSION = 1536  # Matches text-embedding-3-small
@@ -42,6 +46,10 @@ def main():
     print("=" * 70)
     print("US CIVICS TEST - MAIN INGESTION PIPELINE")
     print("=" * 70)
+
+    # Create documents directory
+    DOCUMENTS_DIR.mkdir(exist_ok=True)
+    print(f"\n[Info] Documents will be saved to: {DOCUMENTS_DIR}")
     
     # Load environment variables
     load_dotenv()
@@ -63,12 +71,12 @@ def main():
     try:
         # Step 1: Download all PDFs
         print("\n[Step 1/4] Downloading civics documents...")
-        download_info = download_civics_documents(save_dir=SAVE_DIR)
+        download_info = download_civics_documents(save_dir=str(DOCUMENTS_DIR))
         print(f"✓ Downloaded {len(download_info['tests'])} tests and 1 guide")
         
         # Step 2: Extract Q&As, fill missing data, and save as JSON
         print("\n[Step 2/4] Processing civics test Q&A pairs...")
-        all_qa_pairs = process_civics_tests(download_info, SAVE_DIR)
+        all_qa_pairs = process_civics_tests(download_info, (DOCUMENTS_DIR))
         total_questions = sum(len(qa) for qa in all_qa_pairs.values())
         print(f"✓ Processed {total_questions} total questions")
         
