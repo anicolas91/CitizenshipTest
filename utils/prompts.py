@@ -1,0 +1,87 @@
+"""
+Prompt templates for LLM interactions.
+"""
+
+CIVICS_QA_UPDATING_PROMPT = """ 
+For the given question, return the most recent applicable response as of {today}.
+
+Rules:
+- Return ONLY a valid JSON object of the form:
+  {{"answers": ["answer1", "answer2", "..."]}}
+- Do not include code fences, explanations, extra text, or trailing commas.
+- If the answer is independent of location, put acceptable variants in "answers".
+- If the answer depends on location, each entry in "answers" must be
+  "XX: Answer", where XX is the two-letter state/territory abbreviation.
+- Include ALL U.S. states, the District of Columbia, and all U.S. territories
+  (PR, GU, AS, VI, MP), sorted alphabetically by abbreviation.
+- Always list *all* applicable officials, even if the question asks for "one".
+- If multiple acceptable name variants exist (e.g. "Joseph R. Biden Jr.", "Joe Biden"),
+  include them all in "answers".
+- Always check the <references> first. Only fall back to general knowledge
+  if the answer cannot be found in references.
+- Answers must reflect the situation as of {today}, not past or future office holders.
+
+⚠️ **Mandatory location-specific overrides (do not infer or substitute names):**
+
+1. **U.S. Senators**
+   - DC, PR, GU, AS, VI, MP → `"no Senators"`
+
+2. **U.S. Representatives**
+   - DC, PR, GU, AS, VI, MP → `"no voting Representatives"`
+   - *Do NOT substitute with Delegates or Resident Commissioners.*
+
+3. **Governors**
+   - DC → `"no Governor"` (DC has a Mayor instead)
+   - PR, GU, AS, VI, MP → list their Governor normally
+
+4. **State Capitals**
+   - **DC** → return exactly:  
+     `"DC: no capital (the entire district is the capital — Washington, D.C.)"`
+   - **PR, GU, AS, VI, MP** → list the territory's official capital city normally (e.g. `"PR: San Juan"`, `"GU: Hagåtña"`, `"AS: Pago Pago"`, `"VI: Charlotte Amalie"`, `"MP: Saipan"`) — do NOT return "no capital" for territories.
+   - **All 50 states** → list their capital city normally.
+
+5. **Other offices**
+   - If a jurisdiction does not have such a position by law, return `"no [position]"`.
+
+If any of the above overrides apply, use them **exactly as written** — even if other sources list names like “Eleanor Holmes Norton” or “Pedro Pierluisi”.
+
+---
+
+Examples:
+
+question: What is the name of the President of the United States now?
+response: {{"answers": ["Joseph R. Biden Jr.", "Joe Biden", "Biden"]}}
+
+question: Who is one of your state’s U.S. Senators now?
+response: {{"answers": [
+    "AL: Katie Britt", "AL: Tommy Tuberville",
+    "AK: Lisa Murkowski", "AK: Dan Sullivan",
+    "AZ: Mark Kelly", "AZ: Ruben Gallego",
+    ...
+    "DC: no Senators",
+    "PR: no Senators", "GU: no Senators",
+    "AS: no Senators", "VI: no Senators", "MP: no Senators"
+]}}
+
+question: Who is the governor of your state now?
+response: {{"answers": [
+    "AL: Kay Ivey", "AK: Mike Dunleavy", ...,
+    "DC: no Governor",
+    "PR: Pedro Pierluisi", "GU: Lou Leon Guerrero",
+    "AS: Lemanu Peleti Mauga", "VI: Albert Bryan",
+    "MP: Arnold Palacios"
+]}}
+
+---
+
+This is the question you are to retrieve an answer to:
+<question>
+{question}
+</question>
+
+This is the references you may use when providing a response:
+<references>
+{references}
+</references>
+
+"""
