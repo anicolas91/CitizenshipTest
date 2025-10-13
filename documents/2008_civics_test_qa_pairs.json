@@ -139,8 +139,8 @@
   {
     "question": "Who is one of your state’s U.S. Senators now?",
     "answers": [
-      "AL: Katie Britt",
       "AL: Tommy Tuberville",
+      "AL: Katie Britt",
       "AK: Lisa Murkowski",
       "AK: Dan Sullivan",
       "AZ: Mark Kelly",
@@ -903,8 +903,7 @@
       "GU: Lou Leon Guerrero",
       "MP: David M. Apatang",
       "PR: Jenniffer González-Colón",
-      "VI: Albert Bryan",
-      "DC: no Governor"
+      "VI: Albert Bryan"
     ]
   },
   {
@@ -932,7 +931,7 @@
       "MD: Annapolis",
       "MA: Boston",
       "MI: Lansing",
-      "MN: St. Paul",
+      "MN: Saint Paul",
       "MS: Jackson",
       "MO: Jefferson City",
       "MT: Helena",
@@ -960,12 +959,12 @@
       "WV: Charleston",
       "WI: Madison",
       "WY: Cheyenne",
-      "AS: Pago Pago",
-      "GU: Hagåtña",
-      "MP: Saipan",
+      "DC: no capital (the entire district is the capital — Washington, D.C.)",
       "PR: San Juan",
+      "GU: Hagåtña",
+      "AS: Pago Pago",
       "VI: Charlotte Amalie",
-      "DC: no capital (the entire district is the capital — Washington, D.C.)"
+      "MP: Saipan"
     ]
   },
   {
