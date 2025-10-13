@@ -6,6 +6,7 @@ Downloads PDFs, extracts Q&A pairs, processes civics guide text,
 and uploads embeddings to Qdrant vector database.
 
 Usage:
+    source .venv/bin/activate
     python scripts/ingest.py
 """
 
