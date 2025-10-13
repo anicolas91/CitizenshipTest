@@ -87,7 +87,8 @@ def get_context(
 def llm(
     system_prompt: str,
     user_prompt: str,
-    model: str = DEFAULT_LLM_MODEL
+    model: str = DEFAULT_LLM_MODEL,
+    temperature: float = 0.3
 ) -> Dict[str, Any]:
     """
     Get an answer from the LLM using custom system and user prompts.
@@ -96,6 +97,7 @@ def llm(
         system_prompt: The system message that defines the assistant's behavior and role
         user_prompt: The user message containing the question and any context
         model: OpenAI model to use (default: gpt-4o-mini)
+        temperature: default is 0.3
     
     Returns:
         The LLM's parsed JSON output as a dict. If parsing fails, returns {"error": "..."}.
@@ -111,7 +113,7 @@ def llm(
                 {"role": "user", "content": user_prompt},
             ],
             response_format={"type": "json_object"},
-            temperature=0.3,
+            temperature=temperature,
         )
 
         response_text = completion.choices[0].message.content
