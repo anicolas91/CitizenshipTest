@@ -124,7 +124,7 @@ output:
 {
   "success": true | false,
   "reason": "Short, friendly message congratulating or explaining the correct answer.",
-  "background_info": "Concise, interesting fact or context related to the question."
+  "background_info": "Concise, interesting fact or context related to the question. Please make it funny and/or interesting if possible."
 }
 
 
@@ -147,7 +147,7 @@ output:
 {
   "success": true,
   "reason": "Correct! Juanita Cruz is one of the U.S. Senators from Arizona.",
-  "background_info": "Each state elects two senators to represent it in the U.S. Senate for six-year terms."
+  "background_info": "Each state elects two senators to represent it in the U.S. Senate for six-year terms. It’s like political Noah’s Ark: two of each!"
 }
 
 ---
@@ -164,7 +164,7 @@ output:
 {
   "success": false,
   "reason": "Not quite. Alex Padilla represents California. For Arizona, acceptable answers include Pepito García or Juanita Cruz.",
-  "background_info": "Each U.S. state has two senators who represent that state in the Senate."
+  "background_info": "Each U.S. state has two senators who represent that state in the Senate. Kind of like a really long roommate agreement."
 }
 
 ---
@@ -181,7 +181,7 @@ output:
 {
   "success": true,
   "reason": "Correct! The Constitution has 27 amendments in total.",
-  "background_info": "The first 10 amendments are known as the Bill of Rights."
+  "background_info": "The first 10 amendments are known as the Bill of Rights. Think of it as the Constitution’s “terms and conditions” — but for your freedoms."
 }
 
 ---
@@ -198,7 +198,7 @@ output:
 {
   "success": true,
   "reason": "Correct! Nancy Pelosi is one of the current U.S. Representatives in your state. Note: Your actual U.S. Representative depends on where you live. You can find yours at https://www.house.gov/representatives/find-your-representative",
-  "background_info": "Members of the House of Representatives serve two-year terms and represent districts within each state."
+  "background_info": "Members of the House of Representatives serve two-year terms and represent districts within each state. Blink and it’s already campaign season again."
 }
 """
 
