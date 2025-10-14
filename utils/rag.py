@@ -144,6 +144,7 @@ def rag(
     context_limit: int = 2,
     score_threshold: float = 0.5,
     query_expansion: bool = False,
+    temperature: float = 0.5
 ) -> Dict[str, Any]:
     """
     Complete RAG pipeline for Q&A with context retrieval.
@@ -158,6 +159,9 @@ def rag(
         model: OpenAI model to use
         collection_name: Qdrant collection name
         context_limit: Number of context chunks to retrieve
+        score_threshold: Minimum similarity score (0-1) for results
+        query_expansion: If True, expand query with related civics terms
+        temperature: default is 0.3 
     
     Returns:
         Dict containing LLM response (parsed JSON) or error information
@@ -169,7 +173,7 @@ def rag(
         ...     system_prompt="You are a civics tutor...",
         ...     question="What are the branches of government?",
         ...     answers="A) 2 B) 3 C) 4",
-        ...     user_state="beginner",
+        ...     user_state="AZ",
         ...     user_answer="B"
         ... )
     """
@@ -193,7 +197,7 @@ def rag(
         )
         
         # Send to LLM (llm function already parses JSON output)
-        return llm(system_prompt, qna_user_prompt, model, temperature=0.5)
+        return llm(system_prompt, qna_user_prompt, model, temperature)
     
     except KeyError as e:
         return {"error": f"Missing placeholder in user_prompt template: {e}"}
