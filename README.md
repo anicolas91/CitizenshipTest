@@ -37,7 +37,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - Ingestion pipeline
   - 0 points: No ingestion
   - 1 point: Semi-automated ingestion of the dataset into the knowledge base, e.g., with a Jupyter notebook
-  - <u>**2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)**</u> → Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings via OpenAI, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
+  - <u>**2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)**</u> &rarr; Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings via OpenAI, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
 - Monitoring
   - 0 points: No monitoring
   - 1 point: User feedback is collected OR there's a monitoring dashboard
@@ -53,7 +53,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - Best practices
   - [ ] Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
   - [ ] Document re-ranking (1 point)
-  - [ ] User query rewriting (1 point)
+  - [x] User query rewriting (1 point) → Evaluated query expansion systematically by testing retrieval with and without expanded queries. Measured impact using Hit Rate and MRR metrics. Results showed no improvement (expansion actually decreased performance), so the feature was not implemented in production. See evaluation [here](./notebooks/04_retrieval_evaluation.ipynb).
 - Bonus points (not covered in the course)
   - [ ] Deployment to the cloud (2 points)
   - [ ] Up to 3 extra bonus points if you want to award for something extra (write in feedback for what)
