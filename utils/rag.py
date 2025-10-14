@@ -88,7 +88,7 @@ def llm(
     system_prompt: str,
     user_prompt: str,
     model: str = DEFAULT_LLM_MODEL,
-    temperature: float = 0.3
+    temperature: float = 0.3,
 ) -> Dict[str, Any]:
     """
     Get an answer from the LLM using custom system and user prompts.
@@ -141,7 +141,9 @@ def rag(
     user_answer: str,
     model: str = DEFAULT_LLM_MODEL,
     collection_name: str = DEFAULT_COLLECTION,
-    context_limit: int = 2
+    context_limit: int = 2,
+    score_threshold: float = 0.5,
+    query_expansion: bool = False,
 ) -> Dict[str, Any]:
     """
     Complete RAG pipeline for Q&A with context retrieval.
@@ -176,7 +178,9 @@ def rag(
         context = get_context(
             question=question,
             collection_name=collection_name,
-            limit=context_limit
+            limit=context_limit,
+            score_threshold=score_threshold,
+            query_expansion=query_expansion
         )
         
         # Format the user prompt with all variables
@@ -189,7 +193,7 @@ def rag(
         )
         
         # Send to LLM (llm function already parses JSON output)
-        return llm(system_prompt, qna_user_prompt, model)
+        return llm(system_prompt, qna_user_prompt, model, temperature=0.5)
     
     except KeyError as e:
         return {"error": f"Missing placeholder in user_prompt template: {e}"}
