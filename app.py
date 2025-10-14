@@ -35,16 +35,49 @@ def reset_quiz_state():
         'answered', 
         'total_attempted',
         'total_correct',
+        'total_incorrect',
         'result',
         'user_answer_text',
         'question_counter',
         'asked_questions',
+        'test_complete',
+        'test_passed', 
         # Add any other quiz state variables here as you build
     ]
     
     for key in quiz_keys:
         if key in st.session_state:
             del st.session_state[key]
+
+def check_test_completion():
+    """Check if the test is complete based on 2008 or 2025 rules"""
+    test_year = st.session_state.test_year
+    correct = st.session_state.total_correct
+    incorrect = st.session_state.total_incorrect
+    
+    if test_year == "2008":
+        # 2008 rules: Pass with 6 correct, fail with 5 incorrect
+        if correct >= 6:
+            st.session_state.test_complete = True
+            st.session_state.test_passed = True
+            return True
+        elif incorrect >= 5:
+            st.session_state.test_complete = True
+            st.session_state.test_passed = False
+            return True
+    
+    elif test_year == "2025":
+        # 2025 rules: Pass with 12 correct, fail with 9 incorrect
+        if correct >= 12:
+            st.session_state.test_complete = True
+            st.session_state.test_passed = True
+            return True
+        elif incorrect >= 9:
+            st.session_state.test_complete = True
+            st.session_state.test_passed = False
+            return True
+    
+    return False
 
 def reset_all_state():
     """Clear everything and go back to setup"""
@@ -183,9 +216,39 @@ if 'question' not in st.session_state:
     st.session_state.answered = False
     st.session_state.total_attempted = 0
     st.session_state.total_correct = 0
+    st.session_state.total_incorrect = 0
     st.session_state.question_counter = 0
-    st.session_state.asked_questions = [st.session_state.question]  # Track asked questions
+    st.session_state.asked_questions = [st.session_state.question]
+    st.session_state.test_complete = False
+    st.session_state.test_passed = False
 
+# CHECK IF TEST IS COMPLETE - Show completion screen
+if st.session_state.test_complete:
+    if st.session_state.test_passed:
+        st.balloons()  # Celebrate!
+        st.success("# 🎉 Congratulations! You Passed!")
+        st.write(f"You answered **{st.session_state.total_correct}** questions correctly!")
+        st.write("You're ready for your citizenship test! 🇺🇸")
+    else:
+        st.error("# 📚 Keep Practicing!")
+        st.write(f"You got **{st.session_state.total_incorrect}** questions wrong.")
+        st.write("Don't worry - practice makes perfect!")
+    
+    # Show test details
+    test_year = st.session_state.test_year
+    if test_year == "2008":
+        st.info(f"**2008 Test Rules:**\n- Need 6 correct out of 10 questions\n- You got {st.session_state.total_correct} correct")
+    else:
+        st.info(f"**2025 Test Rules:**\n- Need 12 correct out of 20 questions\n- You got {st.session_state.total_correct} correct")
+    
+    st.write("---")
+    
+    # Restart button
+    if st.button("🔄 Start New Test", type="primary", use_container_width=True):
+        reset_quiz_state()
+        st.rerun()
+    
+    st.stop()  # Don't show the quiz interface
 
 # Display question
 st.subheader("Question:")
@@ -224,12 +287,17 @@ with col1:
             st.session_state.answered = True
             st.session_state.total_attempted += 1
             
-            # Check if passed
+            # Check if passed - FIXED: removed .lower()
             if 'error' not in result:
                 success = result.get('success', False)
                 if success:
                     st.session_state.total_correct += 1
-
+                else:
+                    st.session_state.total_incorrect += 1
+                
+                # Check if test is complete
+                check_test_completion()
+            
             st.rerun()
 
 with col2:
@@ -291,8 +359,31 @@ with st.sidebar:
     
     if st.session_state.total_attempted > 0:
         accuracy = (st.session_state.total_correct / st.session_state.total_attempted) * 100
+        
+        # Show test-specific progress
+        test_year = st.session_state.test_year
+        if test_year == "2008":
+            st.write("**2008 Test Progress:**")
+            st.write(f"- Need 6 correct to pass")
+            st.write(f"- Can miss up to 4 questions")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("✅ Correct", st.session_state.total_correct)
+            with col2:
+                st.metric("❌ Incorrect", st.session_state.total_incorrect)
+        else:
+            st.write("**2025 Test Progress:**")
+            st.write(f"- Need 12 correct to pass")
+            st.write(f"- Can miss up to 8 questions")
+            col1, col2 = st.columns(2)
+            with col1:
+                st.metric("✅ Correct", st.session_state.total_correct)
+            with col2:
+                st.metric("❌ Incorrect", st.session_state.total_incorrect)
+        
+        st.write("---")
+        
         st.metric("Questions Attempted", st.session_state.total_attempted)
-        st.metric("Correct Answers", st.session_state.total_correct)
         st.metric("Accuracy", f"{accuracy:.1f}%")
         
         # Show progress through question bank
