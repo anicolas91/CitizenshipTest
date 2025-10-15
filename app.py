@@ -1,7 +1,6 @@
 # streamlit run app.py
 
 import os
-import sys
 from pathlib import Path
 
 # Get project paths
@@ -11,6 +10,10 @@ DOCUMENTS_DIR = SCRIPT_DIR / 'documents'
 # import main libraries
 import streamlit as st
 import random
+
+# Set all secrets as environment variables
+for key, value in st.secrets.items():
+    os.environ[key] = value
 
 # Import from your existing utils
 from utils.io import load_from_json
