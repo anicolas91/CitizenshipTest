@@ -33,7 +33,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - Interface
   - 0 points: No way to interact with the application at all
   - 1 point: Command line interface, a script, or a Jupyter notebook
-  - <u>**2 points: UI (e.g., Streamlit), web application (e.g., Django), or an API (e.g., built with FastAPI)**</u> &rarr; User can connect to the application via a streamlit UI. Currently done via `streamlit run app.py`. Deployment will be done later.
+  - <u>**2 points: UI (e.g., Streamlit), web application (e.g., Django), or an API (e.g., built with FastAPI)**</u> &rarr; User can connect to the application via a streamlit UI. Currently done via `streamlit run app.py` locally, and deployed on cloud [here](https://citizenship-test.streamlit.app/).
 - Ingestion pipeline
   - 0 points: No ingestion
   - 1 point: Semi-automated ingestion of the dataset into the knowledge base, e.g., with a Jupyter notebook
