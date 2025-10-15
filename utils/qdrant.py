@@ -8,45 +8,50 @@ def create_qdrant_collection(
     collection_name: str = "usa_civics_guide",
     dimension_size: int = 1536,
     distance_metric: Distance = Distance.COSINE,
-    recreate: bool = False
+    recreate: bool = True  # Changed default to True
 ) -> bool:
     """
-    Create a Qdrant collection for storing embeddings, or skip if it already exists.
+    Create a Qdrant collection for storing embeddings, deleting it first if it already exists.
     
     Args:
         client: QdrantClient instance
         collection_name: Name of the collection to create (default: "usa_civics_guide")
         dimension_size: Vector dimension size (default: 1536 for text-embedding-3-small)
         distance_metric: Distance metric to use (default: COSINE)
-        recreate: If True, delete existing collection and create new one (default: False)
+        recreate: If True, delete existing collection and create new one (default: True)
         
     Returns:
-        bool: True if collection was created, False if it already existed
+        bool: True if collection was created, False if skipped (when recreate=False and exists)
         
     Example:
         >>> from qdrant_client import QdrantClient
         >>> client = QdrantClient(url="http://localhost:6333")
+        >>> # Always recreate (delete if exists, then create)
         >>> created = create_qdrant_collection(client, collection_name="my_collection")
         >>> print(f"Collection created: {created}")
         
     Note:
         Default dimension size (1536) is optimized for OpenAI's text-embedding-3-small model.
+        By default, this will delete and recreate the collection to avoid duplicates.
     """
     # Check if collection already exists
+    collection_exists = False
     try:
         client.get_collection(collection_name=collection_name)
-        
+        collection_exists = True
+    except Exception:
+        # Collection doesn't exist
+        pass
+    
+    # Delete if exists and recreate is True
+    if collection_exists:
         if recreate:
-            print(f"Collection '{collection_name}' exists. Deleting and recreating...")
+            print(f"Collection '{collection_name}' exists. Deleting...")
             client.delete_collection(collection_name=collection_name)
-            # Continue to create new collection
+            print(f"✓ Collection '{collection_name}' deleted successfully!")
         else:
             print(f"Collection '{collection_name}' already exists. Skipping creation.")
             return False
-            
-    except Exception:
-        # Collection doesn't exist, will create it
-        pass
     
     # Create the collection
     print(f"Creating collection '{collection_name}'...")
