@@ -225,18 +225,49 @@ Each point contains:
 
 ## Automated Monthly Ingestion
 
-The ingestion pipeline runs automatically on the 1st of every month at 2 AM UTC via GitHub Actions.
+The ingestion pipeline runs automatically on the 1st of every month at 2 AM UTC via GitHub Actions. This workflow:
+
+- Downloads the latest USCIS civics materials
+- Processes and embeds the content
+- Updates the Qdrant vector database
+- Commits updated files back to the repository
 
 ### Manual Triggering
 
-To manually trigger ingestion:
+To manually trigger ingestion outside the monthly schedule:
 
-1. Go to the Actions tab
-2. Select "Monthly Data Ingestion" workflow
-3. Click "Run workflow"
+1. Navigate to the [Actions tab](../../actions) in the repository
+2. Select "Manual Data Ingestion" workflow from the left sidebar
+3. Click "Run workflow" button (top right)
+4. Optionally, add a reason for the manual run (e.g., "Testing new data source")
+5. Click the green "Run workflow" button to confirm
+
+**Note**: Manual runs update Qdrant but do not commit files to the repository. They are useful for testing or urgent data refreshes.
 
 ### Monitoring
 
-- Check workflow status in the Actions tab
-- Artifacts are retained for 30 days
-- Failed runs create an issue automatically
+- **Workflow status**: Check the [Actions tab](../../actions) to see running, completed, or failed workflows
+- **Logs**: Click on any workflow run to view detailed execution logs for each step
+- **Data verification**: Confirm successful uploads by checking your Qdrant dashboard
+- **Artifacts**: Generated files and logs are retained for 30 days (monthly runs only)
+- **Notifications**: Failed runs automatically create an issue in the repository
+
+### Workflow Differences
+
+| Feature         | Monthly Workflow         | Manual Workflow      |
+| --------------- | ------------------------ | -------------------- |
+| Trigger         | Automated (1st of month) | Manual (on-demand)   |
+| Updates Qdrant  | ✅ Yes                   | ✅ Yes               |
+| Commits to repo | ✅ Yes                   | ❌ No                |
+| Retention       | Artifacts saved 30 days  | Ephemeral            |
+| Use case        | Production updates       | Testing/urgent fixes |
+
+### Troubleshooting
+
+If a workflow fails:
+
+1. Check the workflow logs in the Actions tab
+2. Verify GitHub Secrets are set correctly: `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`
+3. Review the [ingestion script](../scripts/ingest.py) for any code errors
+4. Check Qdrant service status if upload steps fail
+5. Manually trigger the workflow again after fixing issues
