@@ -83,7 +83,7 @@ def main():
         # Step 3: Extract the civics guide information
         print("\n[Step 3/4] Extracting text from civics guide...")
         guide_document = os.path.join(
-            SAVE_DIR,
+            DOCUMENTS_DIR,
             f"{download_info['guide']['test_type']}.pdf"
         )
         
