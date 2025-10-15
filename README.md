@@ -55,5 +55,5 @@ In the future, the idea is to turn this into a role-playing game where users “
   - [ ] Document re-ranking (1 point)
   - [x] User query rewriting (1 point) → Evaluated query expansion systematically by testing retrieval with and without expanded queries. Measured impact using Hit Rate and MRR metrics. Results showed no improvement (expansion actually decreased performance), so the feature was not implemented in production. See evaluation [here](./notebooks/04_retrieval_evaluation.ipynb).
 - Bonus points (not covered in the course)
-  - [ ] Deployment to the cloud (2 points)
+  - [x] Deployment to the cloud (2 points) &rarr; App was deployed to the cloud via streamlit and can be found [here](https://citizenship-test.streamlit.app/).
   - [ ] Up to 3 extra bonus points if you want to award for something extra (write in feedback for what)
