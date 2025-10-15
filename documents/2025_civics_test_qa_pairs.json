@@ -3,12 +3,11 @@
     "question": "What is the form of government of the United States?",
     "answers": [
       "Republic",
-      "Constitution-based federal republic",
-      "Representative democracy"
+      "Constitution-based federal republic• Representative democracy"
     ]
   },
   {
-    "question": "What is the supreme law of the land? ",
+    "question": "What is the supreme law of the land?",
     "answers": [
       "(U.S.) Constitution"
     ]
@@ -17,26 +16,20 @@
     "question": "Name one thing the U.S. Constitution does.",
     "answers": [
       "Forms the government",
-      "Defines powers of government",
-      "Defines the parts of government",
+      "Defines powers of government• Defines the parts of government",
       "Protects the rights of the people"
     ]
   },
   {
     "question": "The U.S. Constitution starts with the words “We the People.” What does “We the People” mean?",
     "answers": [
-      "Self-government",
-      "Popular sovereignty",
-      "Consent of the governed",
-      "People should govern themselves",
-      "(Example of) social contract"
+      "Self-government• Popular sovereignty• Consent of the governed• People should govern themselves• (Example of) social contract"
     ]
   },
   {
     "question": "How are changes made to the U.S. Constitution?",
     "answers": [
-      "Amendments",
-      "The amendment process"
+      "Amendments• The amendment process"
     ]
   },
   {
@@ -47,7 +40,7 @@
     ]
   },
   {
-    "question": "How many amendments does the U.S. Constitution have? ",
+    "question": "How many amendments does the U.S. Constitution have?",
     "answers": [
       "Twenty-seven (27)"
     ]
@@ -56,8 +49,7 @@
     "question": "Why is the Declaration of Independence important?",
     "answers": [
       "It says America is free from British control.",
-      "It says all people are created equal.",
-      "It identifies inherent rights.",
+      "It says all people are created equal.• It identifies inherent rights.",
       "It identifies individual freedoms."
     ]
   },
@@ -1047,11 +1039,11 @@
       "WV: Patrick Morrisey",
       "WI: Tony Evers",
       "WY: Mark Gordon",
-      "AS: Pula Nikolao Pula",
-      "GU: Lou Leon Guerrero",
-      "MP: David M. Apatang",
       "PR: Jenniffer González-Colón",
+      "GU: Lou Leon Guerrero",
+      "AS: Pula Nikolao Pula",
       "VI: Albert Bryan",
+      "MP: David M. Apatang",
       "DC: no Governor"
     ]
   },
@@ -1120,53 +1112,39 @@
     "question": "There are four amendments to the U.S. Constitution about who can vote. Describe one of them.",
     "answers": [
       "Citizens eighteen (18) and older (can vote).",
-      "You don’t have to pay (a poll tax) to vote.",
-      "Any citizen can vote. (Women and men can vote.)",
-      "A male citizen of any race (can vote)."
+      "You don’t have to pay (a poll tax) to vote.• Any citizen can vote. (Women and men can vote.)• A male citizen of any race (can vote)."
     ]
   },
   {
     "question": "Who can vote in federal elections, run for federal office, and serve on a jury in the United States?",
     "answers": [
-      "Citizens",
-      "Citizens of the United States",
-      "U.S. citizens"
+      "Citizens• Citizens of the United States• U.S. citizens"
     ]
   },
   {
     "question": "What are three rights of everyone living in the United States?",
     "answers": [
-      "Freedom of expression",
-      "Freedom of speech",
-      "Freedom of assembly",
+      "Freedom of expression• Freedom of speech• Freedom of assembly",
       "Freedom to petition the government",
-      "Freedom of religion",
-      "The right to bear arms"
+      "Freedom of religion• The right to bear arms"
     ]
   },
   {
-    "question": "What do we show loyalty to when we say the Pledge of Allegiance? ",
+    "question": "What do we show loyalty to when we say the Pledge of Allegiance?",
     "answers": [
-      "The United States",
-      "The flag"
+      "The United States • The flag"
     ]
   },
   {
     "question": "Name two promises that new citizens make in the Oath of Allegiance.",
     "answers": [
-      "Give up loyalty to other countries",
-      "Defend the (U.S.) Constitution",
-      "Obey the laws of the United States",
-      "Serve in the military (if needed)",
-      "Serve (help, do important work for) the nation (if needed)",
-      "Be loyal to the United States"
+      "Give up loyalty to other countries• Defend the (U.S.) Constitution• Obey the laws of the United States • Serve in the military (if needed)• Serve (help, do important work for) the nation (if needed)• Be loyal to the United States"
     ]
   },
   {
     "question": "How can people become United States citizens?",
     "answers": [
-      "Be born in the United States, under the conditions set by the 14th Amendment",
-      "Naturalize",
+      "Be born in the United States, under the conditions set by the 14th Amendment• Naturalize",
       "Derive citizenship (under conditions set by Congress)"
     ]
   },
@@ -1217,14 +1195,13 @@
     "question": "The colonists came to America for many reasons. Name one .",
     "answers": [
       "Freedom",
-      "Political liberty",
-      "Religious freedom",
+      "Political liberty• Religious freedom",
       "Economic opportunity",
       "Escape persecution"
     ]
   },
   {
-    "question": "Who lived in America before the Europeans arrived? ",
+    "question": "Who lived in America before the Europeans arrived?",
     "answers": [
       "American Indians",
       "Native Americans"
@@ -1241,8 +1218,7 @@
     "question": "What war did the Americans fight to win independence from Britain?",
     "answers": [
       "American Revolution",
-      "The (American) Revolutionary War",
-      "War for (American) Independence"
+      "The (American) Revolutionary War• War for (American) Independence"
     ]
   },
   {
@@ -1250,18 +1226,14 @@
     "answers": [
       "High taxes",
       "Taxation without representation",
-      "British soldiers stayed in Americans’ houses (boarding, quartering)",
-      "They did not have self-government",
-      "Boston Massacre",
-      "Boston Tea Party (Tea Act)",
-      "Stamp Act",
+      "British soldiers stayed in Americans’ houses (boarding, quartering)• They did not have self-government• Boston Massacre• Boston Tea Party (Tea Act)• Stamp Act",
       "Sugar Act",
       "Townshend Acts",
       "Intolerable (Coercive) Acts"
     ]
   },
   {
-    "question": "Who wrote the Declaration of Independence? ",
+    "question": "Who wrote the Declaration of Independence?",
     "answers": [
       "(Thomas) Jefferson"
     ]
@@ -1345,11 +1317,9 @@
   {
     "question": "Thomas Jefferson is famous for many things. Name one .",
     "answers": [
-      "Writer of the Declaration of Independence",
-      "Third president of the United States",
+      "Writer of the Declaration of Independence• Third president of the United States",
       "Doubled the size of the United States (Louisiana Purchase)",
-      "First Secretary of State",
-      "Founded the University of Virginia",
+      "First Secretary of State• Founded the University of Virginia",
       "Writer of the Virginia Statute on Religious Freedom"
     ]
   },
@@ -1357,8 +1327,7 @@
     "question": "James Madison is famous for many things. Name one .",
     "answers": [
       "“Father of the Constitution”",
-      "Fourth president of the United States",
-      "President during the War of 1812",
+      "Fourth president of the United States• President during the War of 1812",
       "One of the writers of the Federalist Papers"
     ]
   },
@@ -1366,8 +1335,7 @@
     "question": "Alexander Hamilton is famous for many things. Name one .",
     "answers": [
       "First Secretary of the Treasury",
-      "One of the writers of the Federalist Papers",
-      "Helped establish the First Bank of the United States",
+      "One of the writers of the Federalist Papers• Helped establish the First Bank of the United States",
       "Aide to General George Washington",
       "Member of the Continental Congress"
     ]
@@ -1462,26 +1430,22 @@
     "question": "Name one war fought by the United States in the 1900s.",
     "answers": [
       "World War I",
-      "World War II",
-      "Korean War",
-      "Vietnam War",
+      "World War II • Korean War • Vietnam War",
       "(Persian) Gulf War"
     ]
   },
   {
     "question": "Why did the United States enter World War I?",
     "answers": [
-      "Because Germany attacked U.S. (civilian) ships",
-      "To support the Allied Powers (England, France, Italy, and Russia)",
+      "Because Germany attacked U.S. (civilian) ships• To support the Allied Powers (England, France, Italy, and Russia)",
       "To oppose the Central Powers (Germany, Austria-Hungary, the Ottoman Empire, and Bulgaria)"
     ]
   },
   {
     "question": "When did all women get the right to vote?",
     "answers": [
-      "1920",
-      "After World War I",
-      "(With the) 19th Amendment"
+      "1920• After World War I",
+      "(With the) 19"
     ]
   },
   {
@@ -1506,18 +1470,14 @@
   {
     "question": "Why did the United States enter World War II?",
     "answers": [
-      "(Bombing of) Pearl Harbor",
-      "Japanese attacked Pearl Harbor",
-      "To support the Allied Powers (England, France, and Russia)",
+      "(Bombing of) Pearl Harbor• Japanese attacked Pearl Harbor• To support the Allied Powers (England, France, and Russia)",
       "To oppose the Axis Powers (Germany, Italy, and Japan)"
     ]
   },
   {
     "question": "Dwight Eisenhower is famous for many things. Name one .",
     "answers": [
-      "General during World War II",
-      "President at the end of (during) the Korean War",
-      "34th president of the United States",
+      "General during World War II• President at the end of (during) the Korean War• 34",
       "Signed the Federal-Aid Highway Act of 1956 (Created the Interstate System)"
     ]
   },
