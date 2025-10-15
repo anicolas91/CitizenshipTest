@@ -222,3 +222,21 @@ Each point contains:
     }
 }
 ```
+
+## Automated Monthly Ingestion
+
+The ingestion pipeline runs automatically on the 1st of every month at 2 AM UTC via GitHub Actions.
+
+### Manual Triggering
+
+To manually trigger ingestion:
+
+1. Go to the Actions tab
+2. Select "Monthly Data Ingestion" workflow
+3. Click "Run workflow"
+
+### Monitoring
+
+- Check workflow status in the Actions tab
+- Artifacts are retained for 30 days
+- Failed runs create an issue automatically
