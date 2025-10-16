@@ -40,7 +40,7 @@ In the future, the idea is to turn this into a role-playing game where users “
   - ✅ **2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)** &rarr; Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings via OpenAI, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
 - Monitoring
   - 0 points: No monitoring
-  - 1 point: User feedback is collected OR there's a monitoring dashboard
+  - ✅ **1 point: User feedback is collected OR there's a monitoring dashboard** &rarr; user feedback is collected via thumbs up/thumbs down + neo postgres. WIP dashboard.
   - 2 points: User feedback is collected and there's a dashboard with at least 5 charts
 - Containerization
   - 0 points: No containerization
