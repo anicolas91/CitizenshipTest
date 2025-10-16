@@ -198,6 +198,11 @@ with col1:
             # Store results in session state
             st.session_state.result = result
             st.session_state.user_answer_text = user_answer
+
+            # Store LLM metadata for logging
+            if 'metadata' in result:
+                st.session_state.llm_metadata = result['metadata']
+
             st.session_state.answered = True
             st.session_state.total_attempted += 1
             st.session_state.feedback_given = False 
