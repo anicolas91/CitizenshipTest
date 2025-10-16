@@ -45,7 +45,7 @@ def reset_quiz_state():
         'asked_questions',
         'test_complete',
         'test_passed', 
-        # Add any other quiz state variables here as you build
+        'feedback_given',
     ]
     
     for key in quiz_keys:
@@ -53,7 +53,7 @@ def reset_quiz_state():
             del st.session_state[key]
 
 def check_test_completion():
-    """Check if the test is complete based on 2008 or 2025 rules"""
+    """Check if the test WOULD BE complete based on 2008 or 2025 rules - returns True/False but doesn't set state"""
     test_year = st.session_state.test_year
     correct = st.session_state.total_correct
     incorrect = st.session_state.total_incorrect
@@ -61,26 +61,18 @@ def check_test_completion():
     if test_year == "2008":
         # 2008 rules: Pass with 6 correct, fail with 5 incorrect
         if correct >= 6:
-            st.session_state.test_complete = True
-            st.session_state.test_passed = True
-            return True
+            return True, True  # (test_complete, test_passed)
         elif incorrect >= 5:
-            st.session_state.test_complete = True
-            st.session_state.test_passed = False
-            return True
+            return True, False  # (test_complete, test_failed)
     
     elif test_year == "2025":
         # 2025 rules: Pass with 12 correct, fail with 9 incorrect
         if correct >= 12:
-            st.session_state.test_complete = True
-            st.session_state.test_passed = True
-            return True
+            return True, True  # (test_complete, test_passed)
         elif incorrect >= 9:
-            st.session_state.test_complete = True
-            st.session_state.test_passed = False
-            return True
+            return True, False  # (test_complete, test_failed)
     
-    return False
+    return False, False  # (not complete yet, n/a)
 
 def reset_all_state():
     """Clear everything and go back to setup"""
@@ -91,6 +83,28 @@ def reset_all_state():
     
     # Clear quiz
     reset_quiz_state()
+
+def log_feedback(feedback_type):
+    """Log user feedback... placeholder for future database connection"""
+    # Mark feedback as given to disable buttons
+    st.session_state.feedback_given = True
+    
+    # TODO: Later, connect this to SQLite or CSV
+    # For now, just store in session state
+    if 'feedback_log' not in st.session_state:
+        st.session_state.feedback_log = []
+    
+    feedback_entry = {
+        'question': st.session_state.question.get('question', ''),
+        'user_answer': st.session_state.user_answer_text,
+        'correct_answers': st.session_state.question.get('answers', ''),
+        'success': st.session_state.result.get('success', False),
+        'feedback': feedback_type,  # 'positive' or 'negative'
+        'question_number': st.session_state.total_attempted,
+        'test_year': st.session_state.test_year
+    }
+    
+    st.session_state.feedback_log.append(feedback_entry)
 
 # ============================================================================
 # DATA LOADING
@@ -224,6 +238,7 @@ if 'question' not in st.session_state:
     st.session_state.asked_questions = [st.session_state.question]
     st.session_state.test_complete = False
     st.session_state.test_passed = False
+    st.session_state.feedback_given = False
 
 # CHECK IF TEST IS COMPLETE - Show completion screen
 if st.session_state.test_complete:
@@ -235,7 +250,7 @@ if st.session_state.test_complete:
     else:
         st.error("# 📚 Keep Practicing!")
         st.write(f"You got **{st.session_state.total_incorrect}** questions wrong.")
-        st.write("Don't worry - practice makes perfect!")
+        st.write("Don't worry, practice makes perfect!")
     
     # Show test details
     test_year = st.session_state.test_year
@@ -264,7 +279,8 @@ user_answer = st.text_input(
     key=f"answer_input_{st.session_state.question_counter}"
 )
 
-col1, col2 = st.columns(2)
+# Create button row with Submit, Next/Results, and Feedback buttons
+col1, col2, col3, col4 = st.columns([2, 2, 0.5, 0.5])
 
 with col1:
     if st.button("Submit Answer", disabled=st.session_state.answered or not user_answer.strip()):
@@ -289,6 +305,7 @@ with col1:
             st.session_state.user_answer_text = user_answer
             st.session_state.answered = True
             st.session_state.total_attempted += 1
+            st.session_state.feedback_given = False 
             
             # Check if passed - FIXED: removed .lower()
             if 'error' not in result:
@@ -304,27 +321,68 @@ with col1:
             st.rerun()
 
 with col2:
-    if st.button("Next Question", disabled=not st.session_state.answered):
-        # Get list of unasked questions
-        unasked = [q for q in questions if q not in st.session_state.asked_questions]
-        
-        # If all questions asked, reset and start over
-        if not unasked:
-            st.session_state.asked_questions = []
-            unasked = questions
-            st.toast("🎉 You've completed all questions! Starting over...")
-        
-        # Pick from unasked questions
-        st.session_state.question = random.choice(unasked)
-        st.session_state.asked_questions.append(st.session_state.question)
-        
-        st.session_state.answered = False
-        st.session_state.question_counter += 1
-        if 'result' in st.session_state:
-            del st.session_state.result
-        if 'user_answer_text' in st.session_state:
-            del st.session_state.user_answer_text
+    # Check if test WOULD BE complete (but don't set state yet)
+    would_be_complete, would_pass = check_test_completion()
+
+    # Determine button text and type based on test completion status
+    if would_be_complete and st.session_state.answered:
+        button_text = "📊 See Test Results"
+        button_type = "primary"
+    else:
+        button_text = "Next Question"
+        button_type = "secondary"
+
+    if st.button(button_text, disabled=not st.session_state.answered, type=button_type):
+        # If test WOULD BE complete, set the state and show results
+        if would_be_complete:
+            st.session_state.test_complete = True
+            st.session_state.test_passed = would_pass
+            st.rerun()
+        else:
+            # Continue to next question
+            # Get list of unasked questions
+            unasked = [q for q in questions if q not in st.session_state.asked_questions]
+            
+            # If all questions asked, reset and start over
+            if not unasked:
+                st.session_state.asked_questions = []
+                unasked = questions
+                st.toast("🎉 You've completed all questions! Starting over...")
+            
+            # Pick from unasked questions
+            st.session_state.question = random.choice(unasked)
+            st.session_state.asked_questions.append(st.session_state.question)
+            
+            st.session_state.answered = False
+            st.session_state.question_counter += 1
+            st.session_state.feedback_given = False
+            if 'result' in st.session_state:
+                del st.session_state.result
+            if 'user_answer_text' in st.session_state:
+                del st.session_state.user_answer_text
+            st.rerun()
+
+with col3:
+    # Thumbs up button - disabled until answer is submitted and no feedback given yet
+    thumbs_up_disabled = not st.session_state.answered or st.session_state.feedback_given
+    if st.button("👍", disabled=thumbs_up_disabled, key=f"thumbs_up_{st.session_state.question_counter}", help="Good bot"):
+        log_feedback('positive')
+        st.toast("✅ Thanks for your feedback!")
         st.rerun()
+
+with col4:
+    # Thumbs down button - disabled until answer is submitted and no feedback given yet
+    thumbs_down_disabled = not st.session_state.answered or st.session_state.feedback_given
+    if st.button("👎", disabled=thumbs_down_disabled, key=f"thumbs_down_{st.session_state.question_counter}", help="Bad bot"):
+        log_feedback('negative')
+        st.toast("📝 Thanks for your feedback!")
+        st.rerun()
+
+# Show feedback confirmation
+if st.session_state.answered and st.session_state.feedback_given:
+    st.caption("✓ Feedback recorded - thank you!")
+else:
+    st.caption("................................")  # Empty placeholder to reserve space
 
 # Show results if answered
 if st.session_state.answered and 'result' in st.session_state:
@@ -334,7 +392,7 @@ if st.session_state.answered and 'result' in st.session_state:
     if 'error' in result:
         st.error(f"❌ Error: {result['error']}")
     else:
-        # Display results - adjust these keys based on your actual JSON output
+        # Display results
         success = result.get('success', False)
         reason = result.get('reason', '')
         background_info = result.get('background_info', '')
