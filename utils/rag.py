@@ -164,8 +164,9 @@ def rag(
         temperature: default is 0.3 
     
     Returns:
-        Dict containing LLM response (parsed JSON) or error information
-    
+        Dict containing:
+            - LLM response (parsed JSON)
+            - metadata: system_prompt, user_prompt, model, temperature, context
     Example:
         >>> user_prompt_template = "Question: {question}\nAnswers: {answers}\n..."
         >>> result = rag(
@@ -196,10 +197,48 @@ def rag(
             context=context
         )
         
-        # Send to LLM (llm function already parses JSON output)
-        return llm(system_prompt, qna_user_prompt, model, temperature)
-    
+        # Send to LLM (llm function already parses JSON output, and it has 'score','reason', 'background_info', that sort of thing)
+        llm_response=llm(system_prompt, qna_user_prompt, model, temperature)
+
+        # Add metadata to response
+        llm_response['metadata'] = {
+            'system_prompt': system_prompt,
+            'user_prompt': qna_user_prompt,
+            'model': model,
+            'temperature': temperature,
+            'context': context,
+            'context_limit': context_limit,
+            'score_threshold': score_threshold,
+            'query_expansion': query_expansion
+        }
+        
+        return llm_response
+
     except KeyError as e:
-        return {"error": f"Missing placeholder in user_prompt template: {e}"}
+        return {
+            "error": f"Missing placeholder in user_prompt template: {e}",
+            "metadata": {
+                'system_prompt': system_prompt,
+                'user_prompt': user_prompt,  # Original template, not formatted
+                'model': model,
+                'temperature': temperature,
+                'context': context if 'context' in locals() else None,
+                'context_limit': context_limit,
+                'score_threshold': score_threshold,
+                'query_expansion': query_expansion
+            }
+        }
     except Exception as e:
-        return {"error": f"RAG pipeline error: {str(e)}"}
+        return {
+            "error": f"RAG pipeline error: {str(e)}",
+            "metadata": {
+                'system_prompt': system_prompt,
+                'user_prompt': qna_user_prompt if 'qna_user_prompt' in locals() else user_prompt,
+                'model': model,
+                'temperature': temperature,
+                'context': context if 'context' in locals() else None,
+                'context_limit': context_limit,
+                'score_threshold': score_threshold,
+                'query_expansion': query_expansion
+            }
+        }
