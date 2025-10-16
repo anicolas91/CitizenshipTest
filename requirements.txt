@@ -10,3 +10,6 @@ streamlit==1.50.0
 # Optional: Development tools (for Jupyter notebooks)
 ipykernel>=6.30.0
 ipython>=9.0.0
+
+# for db management
+psycopg2-binary>=2.9.11

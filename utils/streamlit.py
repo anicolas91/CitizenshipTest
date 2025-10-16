@@ -1,6 +1,9 @@
 import os
-from pathlib import Path
+import uuid
+import psycopg2
 import streamlit as st
+from pathlib import Path
+from datetime import datetime
 from utils.io import load_from_json
 
 # Get project paths
@@ -119,26 +122,93 @@ def reset_all_state():
     reset_quiz_state()
 
 def log_feedback(feedback_type):
-    """Log user feedback... placeholder for future database connection"""
+    """Log user feedback to Neon Postgres database with session state fallback"""
     # Mark feedback as given to disable buttons
     st.session_state.feedback_given = True
     
-    # TODO: Later, connect this to SQLite or CSV
-    # For now, just store in session state
-    if 'feedback_log' not in st.session_state:
-        st.session_state.feedback_log = []
+    # Generate session ID if not exists
+    if 'session_id' not in st.session_state:
+        st.session_state.session_id = str(uuid.uuid4())
     
+    # Get LLM metadata if available
+    llm_metadata = st.session_state.get('llm_metadata', {})
+    
+    # Prepare feedback entry
     feedback_entry = {
+        'timestamp': datetime.now().isoformat(),
+        'user_state': st.session_state.user_state,
+        'test_year': st.session_state.test_year,
         'question': st.session_state.question.get('question', ''),
         'user_answer': st.session_state.user_answer_text,
         'correct_answers': st.session_state.question.get('answers', ''),
         'success': st.session_state.result.get('success', False),
-        'feedback': feedback_type,  # 'positive' or 'negative'
-        'question_number': st.session_state.total_attempted,
-        'test_year': st.session_state.test_year
+        'reason': st.session_state.result.get('reason', ''),
+        'background_info': st.session_state.result.get('background_info', ''),
+        'feedback': feedback_type,
+        'session_id': st.session_state.session_id,
+        # LLM inputs from metadata
+        'system_prompt': llm_metadata.get('system_prompt', ''),
+        'user_prompt': llm_metadata.get('user_prompt', ''),
+        'model': llm_metadata.get('model', ''),
+        'llm_temperature': llm_metadata.get('temperature', 0.5),
+        'context': llm_metadata.get('context', ''),
+        'context_limit': llm_metadata.get('context_limit', RAG_CONFIG['context_limit']),
+        'score_threshold': llm_metadata.get('score_threshold', RAG_CONFIG['score_threshold']),
+        'query_expansion': llm_metadata.get('query_expansion', RAG_CONFIG['query_expansion']),
     }
     
-    st.session_state.feedback_log.append(feedback_entry)
+    try:
+        # Connect to Neon Postgres
+        conn = psycopg2.connect(st.secrets["database"]["url"])
+        cur = conn.cursor()
+        
+        # Insert feedback into database
+        cur.execute("""
+            INSERT INTO feedback (
+                timestamp, user_state, test_year, question_text, 
+                correct_answers, user_answer, success, reason, 
+                background_info, feedback_type, session_id,
+                rag_context_limit, rag_score_threshold, rag_query_expansion,
+                system_prompt, user_prompt, model, llm_temperature, context
+            ) VALUES (
+                %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s
+            )
+        """, (
+            feedback_entry['timestamp'],
+            feedback_entry['user_state'],
+            feedback_entry['test_year'],
+            feedback_entry['question'],
+            feedback_entry['correct_answers'],
+            feedback_entry['user_answer'],
+            feedback_entry['success'],
+            feedback_entry['reason'],
+            feedback_entry['background_info'],
+            feedback_entry['feedback'],
+            feedback_entry['session_id'],
+            feedback_entry['context_limit'],
+            feedback_entry['score_threshold'],
+            feedback_entry['query_expansion'],
+            feedback_entry['system_prompt'],
+            feedback_entry['user_prompt'],
+            feedback_entry['model'],
+            feedback_entry['llm_temperature'],
+            feedback_entry['context']
+        ))
+        
+        conn.commit()
+        cur.close()
+        conn.close()
+        
+    except Exception as e:
+        # Fallback to session state if database fails
+        if 'feedback_log' not in st.session_state:
+            st.session_state.feedback_log = []
+        
+        feedback_entry['error'] = str(e)
+        st.session_state.feedback_log.append(feedback_entry)
+        
+        # Silent fail - don't disrupt user experience
+        print(f"Database logging failed, saved to session state: {e}")
 
 @st.cache_data
 def load_questions(test_year):
