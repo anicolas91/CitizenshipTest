@@ -43,8 +43,8 @@ US_LOCATIONS = [
 # - query_expansion: Expand queries with synonyms (False)
 # - temperature: LLM creativity level (0.5 = balanced)
 RAG_CONFIG = {
-    'context_limit': 2,
-    'score_threshold': 0.5,
+    'context_limit': 4,
+    'score_threshold': 0.3,
     'query_expansion': False,
     'temperature': 0.5
 }
