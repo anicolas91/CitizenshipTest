@@ -29,7 +29,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - LLM evaluation
   - 0 points: No evaluation of final LLM output is provided
   - 1 point: Only one approach (e.g., one prompt) is evaluated
-  - 2 points: Multiple approaches are evaluated, and the best one is used
+  - **2 points: Multiple approaches are evaluated, and the best one is used** &rarr; Created both quantitative and qualitative metrics (latter use llm-as-judge), used multiple openAI models to compare evaluation outputs, and reached base performance + conclusions. See results [here](./notebooks/05_llm_evaluation.ipynb).
 - Interface
   - 0 points: No way to interact with the application at all
   - 1 point: Command line interface, a script, or a Jupyter notebook
