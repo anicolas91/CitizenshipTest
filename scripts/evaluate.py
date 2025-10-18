@@ -127,6 +127,7 @@ def main():
     # Load feedback data for specified date range
     df = load_feedback_data(conn, start_date, end_date)
     
+    conn.close()
     print(f"📊 Total feedback entries: {len(df)}")
     
     if len(df) == 0:
@@ -163,6 +164,7 @@ def main():
     print("\n✅ Evaluation calculations complete!")
     
     # Save results back to database
+    conn = psycopg2.connect(DATABASE_URL)
     save_evaluation_results(df, conn)
 
     # Close connection

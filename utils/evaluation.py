@@ -359,14 +359,14 @@ def save_evaluation_results(df, conn):
                     calculated_at = NOW()
             """, (
                 date,
-                total_feedback,
-                positive_feedback_rate,
-                mean_background_word_count,
-                mean_similarity,
-                grading_context_pass_rate,
-                grading_accuracy_pass_rate,
-                background_quality_pass_rate,
-                background_context_pass_rate
+                int(total_feedback),
+                float(positive_feedback_rate),
+                float(mean_background_word_count),
+                float(mean_similarity),
+                float(grading_context_pass_rate),
+                float(grading_accuracy_pass_rate),
+                float(background_quality_pass_rate),
+                float(background_context_pass_rate)
             ))
         
         conn.commit()
