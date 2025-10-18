@@ -12,6 +12,142 @@ After each response, the assistant gives a short “Did you know?” explanation
 
 In the future, the idea is to turn this into a role-playing game where users “level up” through mock citizenship interviews, making the whole experience more memorable and motivating.
 
+## Reproducibility & Setup Guide
+
+This project is fully reproducible and can be run locally from scratch.
+You will need to set up accounts with **OpenAI**, **Qdrant**, and **Neon** to obtain the API keys and database connection strings required for the LLM, vector search, and monitoring database services, respectively:
+
+- 🧠 **OpenAI (LLM + embeddings):** [https://platform.openai.com/signup](https://platform.openai.com/signup)
+- 🔍 **Qdrant (vector database):** [https://qdrant.tech](https://qdrant.tech) → click “Get started”
+- 🗄️ **Neon (Postgres database):** [https://neon.tech](https://neon.tech) → click “Get started for free”
+
+Note that all these services are free... openAI gives you 5 usd to start playing with this. You may need to add some more money if you already used that.
+
+### Folder structure
+
+```graphql
+Home.py                  # Main Streamlit chatbot app
+pages/Dashboard.py       # Streamlit dashboard page
+utils/                   # Helper modules (retrieval, prompts, evaluation)
+scripts/
+ ├─ ingest.py            # Automated ingestion and embedding upload
+ └─ evaluate.py          # Evaluation metrics computation
+documents/               # Pre-ingested sample data (ready for quick start)
+schemas/                 # SQL files to initialize Neon Postgres tables
+requirements.txt         # All pinned dependencies
+.env.example             # Example of required environment variables
+```
+
+### Environment setup
+
+#### Step 1. Clone and enter the project
+
+```bash
+git clone https://github.com/anicolas91/CitizenshipTest.git
+cd CitizenshipTest
+```
+
+#### Step 2. Create a virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # (Windows) .venv\Scripts\activate
+```
+
+#### Step 3. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+All package versions are pinned for deterministic builds (see [requirements.txt](./requirements.txt)).
+
+### Environment variables
+
+Create a `.env` file in the project root with the following variables:
+
+```ini
+OPENAI_API_KEY=<your OpenAI key>
+QDRANT_API_KEY=<your Qdrant key>
+QDRANT_URL=<your Qdrant instance URL>
+DATABASE_URL=<your Neon Postgres connection string>
+```
+
+You can use `.env.example` as a template.
+Option A — Use sample pre-ingested data (quick start):
+
+### Setting up the Neon Postgres database
+
+1. Go to https://console.neon.tech and log in (or sign up).
+2. Click “Create Project” → give it a name (e.g., `citizenship-test-db`).
+3. Once it’s created, open the **“SQL Editor”** tab in the left sidebar.
+4. Inside your local project, open the folder `schemas/`. It contains two SQL files (for example):
+
+```graphql
+schemas/
+├─ evaluation_schema.sql
+└─ ingestion_schema.sql
+```
+
+5. Copy and paste the contents of each .sql file into the Neon **SQL Editor**.
+6. Run each file (click the ▶️ “Run” button) to create the necessary tables.
+
+That’s it! your Neon database now has all required tables for:
+
+- Logging user feedback (thumbs up/down)
+- Tracking LLM and retrieval performance metrics
+
+The connection string for this database appears in Neon under **Project Settings → Connection Details**.
+Copy the **SQLAlchemy-compatible URL** (it usually starts with `postgresql+psycopg://…`) and paste it into your `.env` file as `DATABASE_URL`.
+
+#### IMPORTANT NOTE:
+
+⚠️ You only need to run these SQL files **once** to initialize your database schema.  
+If you skip this step, the Streamlit dashboard and feedback logging will not work.
+
+### Running the project
+
+#### Option A – Quick start (with sample data):
+
+```bash
+streamlit run Home.py
+```
+
+This launches the chatbot using pre-ingested QnA+Civics Guide data from the `documents/` folder.
+
+#### Option B – Full refresh (re-ingest from official sources):
+
+```bash
+python scripts/ingest.py
+```
+
+This script:
+
+- Downloads official USCIS PDFs and civics guide
+- Extracts Q&A pairs and current officeholders
+- Generates embeddings via OpenAI
+- Uploads the processed data to Qdrant
+
+#### Option C – Run evaluation metrics:
+
+After using the thumbs-up//thumbs-down in the app to create some user feedback, you can run:
+
+```bash
+python scripts/evaluate.py
+```
+
+This script computes the 7 evaluation metrics tracked in the dashboard.
+
+Once you've run it, you can go refresh the dashboard and see how your app is performing.
+
+### Interacting with the project
+
+The chatbot and the dashboard will automatically open in your browser after you run `streamlit run Home.py`.
+
+If not, you can manually access it at:
+👉 [http://localhost:8502/](http://localhost:8502/)  
+(Note: the port number may vary depending on what’s available.)
+
 # Evaluation criteria
 
 - Problem description
@@ -43,13 +179,13 @@ In the future, the idea is to turn this into a role-playing game where users “
   - 1 point: User feedback is collected OR there's a monitoring dashboard.
   - ✅ **2 points: User feedback is collected and there's a dashboard with at least 5 charts.** &rarr; User feedback is collected via thumbs up/thumbs down + neo postgres. Dashboard set up via streamlit and deployed [here][https://us-citizenship-test.streamlit.app/Dashboard]. The dashboard tracks the 7 metrics developed during the [LLM evaluation analysis](./notebooks/05_llm_evaluation.ipynb) and tracks them via 5+ charts and summaries.
 - Containerization
-  - 0 points: No containerization
+  - **0 points: No containerization** &rarr; Containerization was intentionally skipped due to time constraints. However, the project remains fully reproducible without it, thanks to a comprehensive setup guide.
   - 1 point: Dockerfile is provided for the main application OR there's a docker-compose for the dependencies only
   - 2 points: Everything is in docker-compose
 - Reproducibility
   - 0 points: No instructions on how to run the code, the data is missing, or it's unclear how to access it
   - 1 point: Some instructions are provided but are incomplete, OR instructions are clear and complete, the code works, but the data is missing
-  - 2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.
+  - ✅ **2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.** &rarr; The project includes a complete, step-by-step reproducibility guide covering environment setup, dependency installation, and configuration of external services (**OpenAI**, **Qdrant**, **Neon**). Sample pre-ingested data is provided in the `documents/` folder for immediate testing, while `scripts/ingest.py` can automatically rebuild the dataset from official USCIS sources. Database initialization is fully documented through the `schemas/` SQL files with explicit instructions for creating tables via the Neon SQL editor. All dependencies are pinned in `requirements.txt`, and a `.env.example` file specifies required environment variables. Together, these ensure the entire system can be reproduced locally without containerization and run exactly as described.
 - Best practices
   - [ ] Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
   - [ ] Document re-ranking (1 point)
