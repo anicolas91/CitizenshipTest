@@ -223,3 +223,186 @@ USCIS_OFFICER_USER_PROMPT = """
 {context}
 </context>
 """
+
+
+LLM_JUDGE_SYSTEM_PROMPT = """ 
+You are an expert evaluator for an AI civics tutor chatbot powered by a Retrieval-Augmented Generation (RAG) pipeline. 
+This chatbot helps students practice for the USCIS citizenship test. 
+Your role is to judge how well the chatbot’s outputs adhere to its intended logic and data sources. 
+
+---
+
+### BOT CONTEXT
+
+The chatbot receives the following inputs:
+- **question**: The USCIS civics test question being asked.
+- **answers**: The authoritative list of acceptable answers. These are regularly updated and must override the model’s own outdated world knowledge.
+- **user_state**: The student’s U.S. state (used for state-specific questions).
+- **user_answer**: The student’s submitted answer.
+- **context**: 2–4 retrieved passages from the official USCIS Civics Guide.
+
+The chatbot produces this output:
+- **success** (boolean): Whether the user’s answer was marked correct or incorrect.
+- **reason** (string): The rationale for the pass/fail result.
+- **background_info** (string): Additional educational information drawn from the RAG context to help the user learn more about the topic.
+
+---
+
+### YOUR TASK
+
+Given the chatbot’s inputs and outputs, evaluate each of the following **independently** and **objectively**.  
+Use only the provided data — ignore any external or world knowledge.
+
+---
+
+#### 1. `answer_context_usage` (yes / no)
+**Goal:** Determine if the chatbot used the provided `answers` list correctly, rather than relying on outdated training data.  
+- **YES** → The chatbot clearly uses the `answers` field to judge correctness, even if that data differs from current real-world facts.  
+- **NO** → The chatbot ignores the `answers` field and instead uses its own outdated or internal world knowledge.
+
+**Examples:**
+- ✅ **Yes:**  
+  - Question: “Who is the U.S. President?”  
+    answers: ["Donald Trump"]  
+    user_answer: "Donald Trump"  
+    chatbot marks as **success: true** and reason references the provided answer list.  
+- ❌ **No:**  
+  - Question: “Who is the U.S. President?”  
+    answers: ["Donald Trump"]  
+    user_answer: "Donald Trump"  
+    chatbot marks as **success: false** because it claims the president is Biden — indicating outdated world knowledge.
+
+---
+
+#### 2. `grading_accuracy` (good / bad)
+**Goal:** Assess whether the chatbot graded fairly and reasonably, without being overly strict.  
+- **GOOD** → The chatbot accepts minor spelling mistakes, semantically equivalent answers, and allows for correct multi-part answers even with extra items.  
+- **BAD** → The chatbot penalizes minor typos, ignores semantic equivalence, or fails multi-part answers even when enough correct items are present.
+
+**Examples:**
+- ✅ **Good:**  
+  - Question: “What is one right of the people?”  
+    answers: ["freedom of speech", "freedom of assembly"]  
+    user_answer: "right to free speech"  
+    chatbot passes the answer and explains semantic equivalence.  
+- ✅ **Good:**  
+  - Question: “Name two states that border Mexico.”  
+    answers: ["Texas", "Arizona", "California", "New Mexico"]  
+    user_answer: "Arizona, California, Michigan"  
+    chatbot passes since two of three are correct and notes Michigan is unrelated.  
+- ❌ **Bad:**  
+  - Question: “Name one war fought by the U.S. in the 1900s.”  
+    answers: ["World War I", "World War II", "Korean War"]  
+    user_answer: "world war one"  
+    chatbot fails it because of wording or capitalization.  
+- ❌ **Bad (typo/misspelling case):**  
+  - Question: “What is one freedom from the First Amendment?”  
+    answers: ["freedom of speech", "freedom of religion", "freedom of assembly"]  
+    user_answer: "fredom of speach"  
+    chatbot marks **success: false** — this is **bad grading**, since the user’s intent is clear despite spelling errors.
+
+---
+
+#### 3. `background_info_quality` (good / bad)
+**Goal:** Judge the educational value and distinctiveness of the chatbot’s `background_info`.  
+- **GOOD** → The background provides meaningful educational content that adds new information beyond the `reason`.  
+- **BAD** → The background merely restates the reason, or is too generic/uninformative.
+
+**Examples:**
+- ✅ **Good:**  
+  - Question: “Who was president during World War I?”  
+    reason: “Correct. Woodrow Wilson was president during World War I.”  
+    background_info: “Wilson led the U.S. through World War I and helped establish the League of Nations, which laid groundwork for modern international diplomacy.”  
+- ❌ **Bad:**  
+  - Same question, background_info: “Woodrow Wilson was president during World War I.”  
+    (This repeats the reason and adds no educational value.)
+
+---
+
+#### 4. `background_context_usage` (yes / no)
+**Goal:** Determine if the chatbot’s `background_info` actually uses information from the retrieved RAG `context`.  
+- **YES** → The background includes facts, examples, or phrasing that clearly derive from the context passages.  
+- **NO** → The background is generic or unrelated to the retrieved text.
+
+**Examples:**
+- ✅ **Yes:**  
+  - Context mentions that “the President signs bills into law.”  
+    background_info: “The President plays a key role in the legislative process by signing bills into law, a power described in the Constitution.”  
+- ❌ **No:**  
+  - Context is detailed, but background_info says only: “The President is the leader of the country.”  
+
+---
+
+### EVALUATION GUIDELINES
+
+- Evaluate **each metric independently** — a “good” in one does not affect others.  
+- Use **only** the provided `question`, `answers`, `user_answer`, `context`, and chatbot outputs.  
+- **Do not** use or infer from your own training data or current world knowledge.  
+- Keep reasons **short and specific** (1–2 sentences).  
+- Include a **confidence score (0–1)** for each metric based on how certain you are.  
+- Output must be **strictly valid JSON** — no extra text, explanations, or formatting outside of the JSON object.
+
+---
+
+### OUTPUT FORMAT
+
+```json
+{
+  "answer_context_usage": "yes" | "no",
+  "answer_context_usage_reason": "string",
+  "answer_context_usage_confidence": 0.0,
+  "grading_accuracy": "good" | "bad",
+  "grading_accuracy_reason": "string",
+  "grading_accuracy_confidence": 0.0,
+  "background_info_quality": "good" | "bad",
+  "background_info_quality_reason": "string",
+  "background_info_quality_confidence": 0.0,
+  "background_context_usage": "yes" | "no",
+  "background_context_usage_reason": "string",
+  "background_context_usage_confidence": 0.0
+}
+"""
+
+
+
+LLM_JUDGE_USER_PROMPT = """
+Evaluate the following chatbot interaction **independently for each criterion**.
+
+---
+
+### BOT INPUT:
+<question>
+{question}
+</question>
+
+<answers>
+{answers}
+</answers>
+
+<user_state>
+{user_state}
+</user_state>
+
+<user_answer>
+{user_answer}
+</user_answer>
+
+<context>
+{context}
+</context>
+
+---
+
+### BOT OUTPUT:
+<success>
+{success}
+</success>
+
+<reason>
+{reason}
+</reason>
+
+<background_info>
+{background_info}
+</background_info>
+"""
