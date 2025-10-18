@@ -27,7 +27,7 @@ You will need to set up accounts with **OpenAI**, **Qdrant**, and **Neon** to ob
 - 🔍 **Qdrant (vector database):** [https://qdrant.tech](https://qdrant.tech) → click “Get started”
 - 🗄️ **Neon (Postgres database):** [https://neon.tech](https://neon.tech) → click “Get started for free”
 
-Note that all these services are free... openAI gives you 5 usd to start playing with this. You may need to add some more money if you already used that.
+Note that all these services have free tiers... except OpenAI. Kinda OpenAI gives you 5 usd to start playing with this. You may need to add some more money if you already used that.
 
 ### Folder structure
 
@@ -80,14 +80,13 @@ DATABASE_URL=<your Neon Postgres connection string>
 ```
 
 You can use `.env.example` as a template.
-Option A — Use sample pre-ingested data (quick start):
 
 ### Setting up the Neon Postgres database
 
 1. Go to https://console.neon.tech and log in (or sign up).
 2. Click “Create Project” → give it a name (e.g., `citizenship-test-db`).
 3. Once it’s created, open the **“SQL Editor”** tab in the left sidebar.
-4. Inside your local project, open the folder `schemas/`. It contains two SQL files (for example):
+4. Inside your local project (yes, the one you just cloned), open the folder `schemas/`. It contains two SQL files:
 
 ```graphql
 schemas/
