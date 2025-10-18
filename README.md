@@ -29,7 +29,7 @@ In the future, the idea is to turn this into a role-playing game where users “
 - LLM evaluation
   - 0 points: No evaluation of final LLM output is provided
   - 1 point: Only one approach (e.g., one prompt) is evaluated
-  - **2 points: Multiple approaches are evaluated, and the best one is used** &rarr; Created both quantitative and qualitative metrics (latter use llm-as-judge), used multiple openAI models to compare evaluation outputs, and reached base performance + conclusions. See results [here](./notebooks/05_llm_evaluation.ipynb).
+  - ✅ **2 points: Multiple approaches are evaluated, and the best one is used** &rarr; Created both quantitative and qualitative metrics (latter use llm-as-judge), used multiple openAI models to compare evaluation outputs, and reached base performance + conclusions. See results [here](./notebooks/05_llm_evaluation.ipynb).
 - Interface
   - 0 points: No way to interact with the application at all
   - 1 point: Command line interface, a script, or a Jupyter notebook
@@ -40,8 +40,8 @@ In the future, the idea is to turn this into a role-playing game where users “
   - ✅ **2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)** &rarr; Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings via OpenAI, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
 - Monitoring
   - 0 points: No monitoring
-  - ✅ **1 point: User feedback is collected OR there's a monitoring dashboard** &rarr; user feedback is collected via thumbs up/thumbs down + neo postgres. WIP dashboard.
-  - 2 points: User feedback is collected and there's a dashboard with at least 5 charts
+  - 1 point: User feedback is collected OR there's a monitoring dashboard.
+  - ✅ **2 points: User feedback is collected and there's a dashboard with at least 5 charts.** &rarr; User feedback is collected via thumbs up/thumbs down + neo postgres. Dashboard set up via streamlit and deployed [here][https://us-citizenship-test.streamlit.app/Dashboard]. The dashboard tracks the 7 metrics developed during the [LLM evaluation analysis](./notebooks/05_llm_evaluation.ipynb) and tracks them via 5+ charts and summaries.
 - Containerization
   - 0 points: No containerization
   - 1 point: Dockerfile is provided for the main application OR there's a docker-compose for the dependencies only
@@ -55,5 +55,5 @@ In the future, the idea is to turn this into a role-playing game where users “
   - [ ] Document re-ranking (1 point)
   - ✅ **User query rewriting (1 point)** &rarr; Evaluated query expansion systematically by testing retrieval with and without expanded queries. Measured impact using Hit Rate and MRR metrics. Results showed no improvement (expansion actually decreased performance), so the feature was not implemented in production. See evaluation [here](./notebooks/04_retrieval_evaluation.ipynb).
 - Bonus points (not covered in the course)
-  - ✅ **Deployment to the cloud (2 points)** &rarr; App was deployed to the cloud via streamlit and can be found [here](https://citizenship-test.streamlit.app/).
+  - ✅ **Deployment to the cloud (2 points)** &rarr; App was deployed to the cloud via streamlit and can be found [here](https://us-citizenship-test.streamlit.app/).
   - ✅ **Up to 3 extra bonus points if you want to award for something extra (write in feedback for what)** &rarr; added automatic ingestion of raw data/uploading to QDRANT via CI/CD. See documentation [here](./documents/INGESTION.md#automated-monthly-ingestion).
