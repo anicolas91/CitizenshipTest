@@ -12,6 +12,12 @@ After each response, the assistant gives a short “Did you know?” explanation
 
 In the future, the idea is to turn this into a role-playing game where users “level up” through mock citizenship interviews, making the whole experience more memorable and motivating.
 
+## Try it out!
+
+The deployed study assistant can be found at [https://us-citizenship-test.streamlit.app/](https://us-citizenship-test.streamlit.app/). You will find there a chatbot + the dashboard monitoring 7 metrics that track the performance of this assistant.
+
+Feel free to give feedback via thumbs up//thumbs down. Golden data is always appreciated. Thanks!
+
 ## Reproducibility & Setup Guide
 
 This project is fully reproducible and can be run locally from scratch.
