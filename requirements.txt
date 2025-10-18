@@ -13,3 +13,9 @@ ipython>=9.0.0
 
 # for db management
 psycopg2-binary>=2.9.11
+
+## for data processing and plotting
+plotly==6.3.1
+pandas==2.3.3
+numpy==2.3.3
+tqdm>=4.67.0
