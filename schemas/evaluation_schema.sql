@@ -47,6 +47,9 @@ CREATE TABLE IF NOT EXISTS evaluations (
     background_context_score VARCHAR(10),
     background_context_reason TEXT,
     
+    -- Timestamp from original feedback
+    feedback_timestamp TIMESTAMP,
+
     -- Metadata
     evaluation_version VARCHAR(50) DEFAULT 'v1.0',
     created_at TIMESTAMP DEFAULT NOW()

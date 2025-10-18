@@ -267,8 +267,9 @@ def save_evaluation_results(df, conn):
                     background_quality_reason,
                     background_context_score,
                     background_context_reason,
+                    feedback_timestamp, 
                     evaluation_version
-                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT (feedback_id) 
                 DO UPDATE SET
                     question = EXCLUDED.question,
@@ -288,6 +289,7 @@ def save_evaluation_results(df, conn):
                     background_quality_reason = EXCLUDED.background_quality_reason,
                     background_context_score = EXCLUDED.background_context_score,
                     background_context_reason = EXCLUDED.background_context_reason,
+                    feedback_timestamp = EXCLUDED.feedback_timestamp,
                     evaluation_version = EXCLUDED.evaluation_version,
                     created_at = NOW()
             """, (
@@ -310,7 +312,8 @@ def save_evaluation_results(df, conn):
                 row.get('llm_judge_background_info_quality_reason'),
                 row.get('llm_judge_background_context_usage'),
                 row.get('llm_judge_background_context_usage_reason'),
-                'v1.0'  # version tracking for your evaluation logic
+                row.get('timestamp'),
+                'v1.0'  # version tracking for evaluation logic
             ))
         
         print(f"✅ Saved {len(df)} individual evaluation results")
