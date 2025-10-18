@@ -1,16 +1,3 @@
-# these are utils functions to evaluate the following metrics
-#### Quantitative Metrics
-# ------------------------------------------------------------
-# Positive Feedback Rate
-# Background Word Count
-# Reason-Background Similarity
-
-# #### Qualitative Metrics (LLM-as-Judge)
-# ------------------------------------------------------------
-# Grading use of context
-# Grading Accuracy
-# Background Info Quality
-# Background Use of Context
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from utils.prompts import LLM_JUDGE_SYSTEM_PROMPT, LLM_JUDGE_USER_PROMPT

@@ -28,11 +28,14 @@ Usage:
     # Custom model settings
     python scripts/evaluate.py --date 2025-10-16 --model gpt-4o-mini --temperature 0.5
 """
-
-import argparse
-import psycopg2
-from dotenv import load_dotenv
 import os
+import sys
+from pathlib import Path
+
+# Add project root to path
+SCRIPT_DIR = Path(__file__).parent.resolve()  # scripts/
+PROJECT_ROOT = SCRIPT_DIR.parent              # CitizenshipTest/
+sys.path.append(str(PROJECT_ROOT))
 
 from utils.evaluation import (
     add_background_word_count, 
@@ -42,6 +45,11 @@ from utils.evaluation import (
     load_feedback_data,
     save_evaluation_results
 )
+
+#add the rest of the libraries 
+import argparse
+import psycopg2
+from dotenv import load_dotenv
 
 # Load environment variables from .env file
 load_dotenv()
