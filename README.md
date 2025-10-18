@@ -182,7 +182,7 @@ If not, you can manually access it at:
 - Monitoring
   - 0 points: No monitoring
   - 1 point: User feedback is collected OR there's a monitoring dashboard.
-  - ✅ **2 points: User feedback is collected and there's a dashboard with at least 5 charts.** &rarr; User feedback is collected via thumbs up/thumbs down + neo postgres. Dashboard set up via streamlit and deployed [here][https://us-citizenship-test.streamlit.app/Dashboard]. The dashboard tracks the 7 metrics developed during the [LLM evaluation analysis](./notebooks/05_llm_evaluation.ipynb) and tracks them via 5+ charts and summaries.
+  - ✅ **2 points: User feedback is collected and there's a dashboard with at least 5 charts.** &rarr; User feedback is collected via thumbs up/thumbs down + neo postgres. Dashboard set up via streamlit and deployed [here](https://us-citizenship-test.streamlit.app/Dashboard). The dashboard tracks the 7 metrics developed during the [LLM evaluation analysis](./notebooks/05_llm_evaluation.ipynb) and tracks them via 5+ charts and summaries.
 - Containerization
   - **0 points: No containerization** &rarr; Containerization was intentionally skipped due to time constraints. However, the project remains fully reproducible without it, thanks to a comprehensive setup guide.
   - 1 point: Dockerfile is provided for the main application OR there's a docker-compose for the dependencies only
