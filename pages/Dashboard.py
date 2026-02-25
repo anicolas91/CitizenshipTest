@@ -120,7 +120,7 @@ with st.sidebar:
     # Date range selector
     date_range = st.selectbox(
         "Select time range:",
-        options=["Last 7 days", "Last 14 days", "Last 30 days", "Last 90 days"],
+        options=["Last 7 days", "Last 14 days", "Last 30 days", "Last 90 days", "All time"],
         index=2
     )
     
@@ -129,7 +129,8 @@ with st.sidebar:
         "Last 7 days": 7,
         "Last 14 days": 14,
         "Last 30 days": 30,
-        "Last 90 days": 90
+        "Last 90 days": 90,
+        "All time": 36500
     }
     selected_days = days_map[date_range]
     
