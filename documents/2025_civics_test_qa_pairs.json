@@ -326,7 +326,7 @@
       "AR: French Hill",
       "AR: Steve Womack",
       "AR: Bruce Westerman",
-      "CA: Doug LaMalfa",
+      "CA: Vacant",
       "CA: Jared Huffman",
       "CA: Kevin Kiley",
       "CA: Mike Thompson",
@@ -433,7 +433,7 @@
       "GA: Barry Loudermilk",
       "GA: Rick Allen",
       "GA: David Scott",
-      "GA: Marjorie Taylor Greene",
+      "GA: Vacant",
       "HI: Ed Case",
       "HI: Jill Tokuda",
       "ID: Russ Fulcher",
@@ -682,7 +682,7 @@
       "TX: Monica De La Cruz",
       "TX: Veronica Escobar",
       "TX: Pete Sessions",
-      "TX: Vacant",
+      "TX: Christian Menefee",
       "TX: Jodey Arrington",
       "TX: Joaquin Castro",
       "TX: Chip Roy",
@@ -742,10 +742,10 @@
       "WY: Harriet Hageman",
       "DC: no voting Representatives",
       "PR: Jenniffer González-Colón",
-      "GU: no voting Representatives",
-      "AS: no voting Representatives",
-      "VI: no voting Representatives",
-      "MP: no voting Representatives"
+      "GU: Lou Leon Guerrero",
+      "AS: Pula Nikolao Pula",
+      "VI: Albert Bryan",
+      "MP: David M. Apatang"
     ]
   },
   {
@@ -806,7 +806,9 @@
   {
     "question": "What is the name of the President of the United States now? ",
     "answers": [
-      "Donald Trump"
+      "Joe Biden",
+      "Joseph R. Biden Jr.",
+      "Biden"
     ]
   },
   {
@@ -1018,7 +1020,7 @@
       "NE: Jim Pillen",
       "NV: Joe Lombardo",
       "NH: Kelly Ayotte",
-      "NJ: Phil Murphy",
+      "NJ: Mikie Sherrill",
       "NM: Michelle Lujan Grisham",
       "NY: Kathy Hochul",
       "NC: Josh Stein",
@@ -1034,7 +1036,7 @@
       "TX: Greg Abbott",
       "UT: Spencer Cox",
       "VT: Phil Scott",
-      "VA: Glenn Youngkin",
+      "VA: Abigail Spanberger",
       "WA: Bob Ferguson",
       "WV: Patrick Morrisey",
       "WI: Tony Evers",
@@ -1072,7 +1074,7 @@
       "MD: Annapolis",
       "MA: Boston",
       "MI: Lansing",
-      "MN: Saint Paul",
+      "MN: St. Paul",
       "MS: Jackson",
       "MO: Jefferson City",
       "MT: Helena",
