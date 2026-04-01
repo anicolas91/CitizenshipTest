@@ -210,7 +210,7 @@
       "OH: Bernie Moreno",
       "OH: Jon Husted",
       "OK: James Lankford",
-      "OK: Markwayne Mullin",
+      "OK: Alan Armstrong",
       "OR: Ron Wyden",
       "OR: Jeff Merkley",
       "PA: John Fetterman",
@@ -701,7 +701,7 @@
       "PR: Jenniffer González-Colón",
       "GU: Lou Leon Guerrero",
       "AS: Pula Nikolao Pula",
-      "VI: Albert Bryan",
+      "VI: Albert Bryan Jr.",
       "MP: David M. Apatang"
     ]
   },
@@ -734,8 +734,8 @@
   {
     "question": "What is the name of the President of the United States now?",
     "answers": [
-      "Joe Biden",
       "Joseph R. Biden Jr.",
+      "Joe Biden",
       "Biden"
     ]
   },
@@ -905,7 +905,7 @@
       "GU: Lou Leon Guerrero",
       "MP: David M. Apatang",
       "PR: Jenniffer González-Colón",
-      "VI: Albert Bryan",
+      "VI: Albert Bryan Jr.",
       "DC: no Governor"
     ]
   },
@@ -979,7 +979,7 @@
   {
     "question": "What is the political party of the President now?",
     "answers": [
-      "Democratic Party"
+      "Democratic"
     ]
   },
   {
