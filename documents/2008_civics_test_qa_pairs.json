@@ -296,7 +296,7 @@
       "CA: Nancy Pelosi",
       "CA: Lateefah Simon",
       "CA: Adam Gray",
-      "CA: Eric Swalwell",
+      "CA: Vacant",
       "CA: Kevin Mullin",
       "CA: Sam Liccardo",
       "CA: Ro Khanna",
@@ -368,7 +368,7 @@
       "FL: Greg Steube",
       "FL: Scott Franklin",
       "FL: Byron Donalds",
-      "FL: Sheila Cherfilus-McCormick",
+      "FL: Vacant",
       "FL: Brian Mast",
       "FL: Lois Frankel",
       "FL: Jared Moskowitz",
@@ -389,8 +389,8 @@
       "GA: Mike Collins",
       "GA: Barry Loudermilk",
       "GA: Rick Allen",
-      "GA: David Scott",
       "GA: Vacant",
+      "GA: Clay Fuller",
       "HI: Ed Case",
       "HI: Jill Tokuda",
       "ID: Russ Fulcher",
@@ -514,7 +514,7 @@
       "NJ: Rob Menendez",
       "NJ: Nellie Pou",
       "NJ: LaMonica McIver",
-      "NJ: Vacant",
+      "NJ: Analilia Mejia",
       "NJ: Bonnie Watson Coleman",
       "NM: Melanie Stansbury",
       "NM: Gabe Vasquez",
@@ -644,7 +644,7 @@
       "TX: Joaquin Castro",
       "TX: Chip Roy",
       "TX: Troy Nehls",
-      "TX: Tony Gonzales",
+      "TX: Vacant",
       "TX: Beth Van Duyne",
       "TX: Roger Williams",
       "TX: Brandon Gill",
@@ -734,8 +734,8 @@
   {
     "question": "What is the name of the President of the United States now?",
     "answers": [
-      "Joseph R. Biden Jr.",
       "Joe Biden",
+      "Joseph R. Biden Jr.",
       "Biden"
     ]
   },
@@ -901,10 +901,10 @@
       "WV: Patrick Morrisey",
       "WI: Tony Evers",
       "WY: Mark Gordon",
-      "AS: Pula Nikolao Pula",
-      "GU: Lou Leon Guerrero",
-      "MP: David M. Apatang",
       "PR: Jenniffer González-Colón",
+      "GU: Lou Leon Guerrero",
+      "AS: Pula Nikolao Pula",
+      "MP: David M. Apatang",
       "VI: Albert Bryan Jr.",
       "DC: no Governor"
     ]
@@ -979,7 +979,7 @@
   {
     "question": "What is the political party of the President now?",
     "answers": [
-      "Democratic"
+      "Democratic Party"
     ]
   },
   {
