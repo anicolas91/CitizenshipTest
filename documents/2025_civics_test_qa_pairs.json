@@ -806,8 +806,8 @@
   {
     "question": "What is the name of the President of the United States now? ",
     "answers": [
-      "Joe Biden",
       "Joseph R. Biden Jr.",
+      "Joe Biden",
       "Biden"
     ]
   },
