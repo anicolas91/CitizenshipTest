@@ -16,11 +16,11 @@ The pipeline performs the following steps automatically:
 
 2. **Extracts Q&A Pairs** - Parses questions and answers from test PDFs using custom PDF extraction logic
 
-3. **Populates Current Data** - Uses LLM to fill in variable answers (current government officials, etc.)
+3. **Populates Current Data** - Uses Claude (Haiku 5.5) to fill in variable answers (current government officials, etc.) from officeholder lists scraped from Wikipedia and Wikidata
 
 4. **Processes Guide Text** - Cleans and segments the civics textbook content
 
-5. **Generates Embeddings** - Creates vector embeddings using OpenAI's `text-embedding-3-small` model
+5. **Generates Embeddings** - Creates vector embeddings locally with fastembed's `BAAI/bge-small-en-v1.5` model (no API key needed)
 
 6. **Uploads to Qdrant** - Stores embeddings in vector database for semantic search
 
@@ -28,7 +28,7 @@ The pipeline performs the following steps automatically:
 
 ### API Keys Required
 
-- **OpenAI API Key** - For generating embeddings and populating current data
+- **Anthropic (Claude) API Key** - For populating current officeholder data. Create it inside a workspace at [platform.claude.com](https://platform.claude.com)
 - **Qdrant Access** - URL and API key for vector database
 
 ### Environment Setup
@@ -36,7 +36,7 @@ The pipeline performs the following steps automatically:
 Create a `.env` file in the project root:
 
 ```bash
-OPENAI_API_KEY=your_openai_api_key_here
+ANTHROPIC_API_KEY=your_anthropic_api_key_here
 QDRANT_URL=http://localhost:6333
 QDRANT_API_KEY=your_qdrant_api_key_here
 ```
@@ -53,7 +53,8 @@ pip install -r requirements.txt
 
 Key dependencies:
 
-- openai - For embeddings and LLM calls
+- anthropic - For Claude LLM calls
+- fastembed - For local embeddings
 - qdrant-client - Vector database client
 - PyPDF2 - PDF parsing
 - beautifulsoup4 - Web scraping for current officials
@@ -109,23 +110,23 @@ US CIVICS TEST - MAIN INGESTION PIPELINE
 ✓ Processed 228 total questions
 
 [Step 3/4] Extracting text from civics guide...
-✓ Extracted 45 text segments from guide
+✓ Extracted 34 text segments from guide
 
 [Step 4/4] Uploading embeddings to Qdrant...
   Creating/verifying collection 'usa_civics_guide'...
-  Generating embeddings using text-embedding-3-small...
-  ✓ Created 45 embedded points
-  Uploading 45 points to Qdrant...
-✓ Successfully uploaded 45 embedded documents
+  Generating embeddings using BAAI/bge-small-en-v1.5...
+  ✓ Created 34 embedded points
+  Uploading 34 points to Qdrant...
+✓ Successfully uploaded 34 embedded documents
 
 ======================================================================
 ✓ INGESTION PIPELINE COMPLETED SUCCESSFULLY
 ======================================================================
   Civics Tests processed: 2
   Total Q&A pairs: 228
-  Guide segments: 45
+  Guide segments: 34
   Qdrant collection: usa_civics_guide
-  Embedding model: text-embedding-3-small
+  Embedding model: BAAI/bge-small-en-v1.5
 ======================================================================
 ```
 
@@ -173,11 +174,11 @@ USCIS Website
 PDF Files
     ↓ (parse)
 Raw Q&A Pairs
-    ↓ (populate with LLM)
+    ↓ (populate with Claude)
 Complete Q&A Pairs → JSON Files
     ↓ (extract & clean)
 Text Segments
-    ↓ (embed with OpenAI)
+    ↓ (embed locally with fastembed)
 Vector Embeddings
     ↓ (upload)
 Qdrant Vector Database
@@ -197,8 +198,8 @@ DOCUMENTS_DIR = PROJECT_ROOT / 'documents'    # Where files are saved
 
 # Configuration
 COLLECTION_NAME = 'usa_civics_guide'          # Qdrant collection name
-EMBEDDING_MODEL = "text-embedding-3-small"    # OpenAI embedding model
-EMBEDDING_DIMENSION = 1536                    # Vector dimension (must match model)
+EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"    # Local fastembed model
+EMBEDDING_DIMENSION = 384                     # Vector dimension (must match model)
 ```
 
 ### Qdrant Collection
@@ -206,7 +207,7 @@ EMBEDDING_DIMENSION = 1536                    # Vector dimension (must match mod
 The script creates a Qdrant collection with:
 
 - Name: `usa_civics_guide`
-- Vector Dimension: 1536 (matches `text-embedding-3-small`)
+- Vector Dimension: 384 (matches `BAAI/bge-small-en-v1.5`)
 - Distance Metric: Cosine similarity
 
 Each point contains:
@@ -214,7 +215,7 @@ Each point contains:
 ```python
 {
     "id": "uuid",
-    "vector": [1536-dimensional embedding],
+    "vector": [384-dimensional embedding],
     "payload": {
         "page_number": 1,
         "text": "Full text content...",
@@ -267,7 +268,7 @@ To manually trigger ingestion outside the monthly schedule:
 If a workflow fails:
 
 1. Check the workflow logs in the Actions tab
-2. Verify GitHub Secrets are set correctly: `OPENAI_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`
+2. Verify GitHub Secrets are set correctly: `ANTHROPIC_API_KEY`, `QDRANT_URL`, `QDRANT_API_KEY`
 3. Review the [ingestion script](../scripts/ingest.py) for any code errors
 4. Check Qdrant service status if upload steps fail
 5. Manually trigger the workflow again after fixing issues

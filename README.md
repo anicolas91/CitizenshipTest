@@ -21,13 +21,15 @@ Feel free to give feedback via thumbs up//thumbs down. Golden data is always app
 ## Reproducibility & Setup Guide
 
 This project is fully reproducible and can be run locally from scratch.
-You will need to set up accounts with **OpenAI**, **Qdrant**, and **Neon** to obtain the API keys and database connection strings required for the LLM, vector search, and monitoring database services, respectively:
+You will need to set up accounts with **Anthropic (Claude)**, **Qdrant**, and **Neon** to obtain the API keys and database connection strings required for the LLM, vector search, and monitoring database services, respectively:
 
-- 🧠 **OpenAI (LLM + embeddings):** [https://platform.openai.com/signup](https://platform.openai.com/signup)
+- 🧠 **Anthropic Claude API (LLM):** [https://platform.claude.com](https://platform.claude.com) → create an API key inside a workspace (e.g. "Default")
 - 🔍 **Qdrant (vector database):** [https://qdrant.tech](https://qdrant.tech) → click “Get started”
 - 🗄️ **Neon (Postgres database):** [https://neon.tech](https://neon.tech) → click “Get started for free”
 
-Note that all these services have free tiers... except OpenAI. Kinda OpenAI gives you 5 usd to start playing with this. You may need to add some more money if you already used that.
+Note that all these services have free tiers... except the Claude API, which is pay-as-you-go (a claude.ai Pro/Max subscription does **not** include API usage). The app uses Claude Haiku 5.5, so a few dollars of credit goes a long way.
+
+Embeddings are generated locally with [fastembed](https://github.com/qdrant/fastembed) (`BAAI/bge-small-en-v1.5`), so no extra account or key is needed for them. The model (~130 MB) is downloaded automatically the first time it is used.
 
 ### Folder structure
 
@@ -53,7 +55,7 @@ git clone https://github.com/anicolas91/CitizenshipTest.git
 cd CitizenshipTest
 ```
 
-#### Step 2. Create a virtual environment
+#### Step 2. Create a virtual environment (Python 3.11+)
 
 ```bash
 python -m venv .venv
@@ -73,7 +75,7 @@ All package versions are pinned for deterministic builds (see [requirements.txt]
 Create a `.env` file in the project root with the following variables:
 
 ```ini
-OPENAI_API_KEY=<your OpenAI key>
+ANTHROPIC_API_KEY=<your Claude API key>
 QDRANT_API_KEY=<your Qdrant key>
 QDRANT_URL=<your Qdrant instance URL>
 DATABASE_URL=<your Neon Postgres connection string>
@@ -130,7 +132,8 @@ This script:
 
 - Downloads official USCIS PDFs and civics guide
 - Extracts Q&A pairs and current officeholders
-- Generates embeddings via OpenAI
+- Uses Claude to fill in current officeholders (President, senators, representatives, governors...)
+- Generates embeddings locally via fastembed
 - Uploads the processed data to Qdrant
 
 #### Option C – Run evaluation metrics:
@@ -162,7 +165,7 @@ If not, you can manually access it at:
 - Retrieval flow
   - 0 points: No knowledge base or LLM is used
   - 1 point: No knowledge base is used, and the LLM is queried directly
-  - ✅ **2 points: Both a knowledge base and an LLM are used in the flow** &rarr; Implemented full RAG pipeline: embedded USCIS civics guide into Qdrant vector database, retrieved relevant context via semantic search, and used OpenAI LLM with retrieved context to generate educational feedback and explanations for quiz answers.
+  - ✅ **2 points: Both a knowledge base and an LLM are used in the flow** &rarr; Implemented full RAG pipeline: embedded USCIS civics guide into Qdrant vector database, retrieved relevant context via semantic search, and used an LLM (originally OpenAI gpt-4o-mini, now Claude Haiku 5.5) with retrieved context to generate educational feedback and explanations for quiz answers.
 - Retrieval evaluation
   - 0 points: No evaluation of retrieval is provided
   - 1 point: Only one retrieval approach is evaluated
@@ -170,7 +173,7 @@ If not, you can manually access it at:
 - LLM evaluation
   - 0 points: No evaluation of final LLM output is provided
   - 1 point: Only one approach (e.g., one prompt) is evaluated
-  - ✅ **2 points: Multiple approaches are evaluated, and the best one is used** &rarr; Created both quantitative and qualitative metrics (latter use llm-as-judge), used multiple openAI models to compare evaluation outputs, finetuted the system prompt based on learnings from the evaluation metrics, and reached final conclusions on evaluation performance and monitoring. See results [here](./notebooks/05_llm_evaluation.ipynb).
+  - ✅ **2 points: Multiple approaches are evaluated, and the best one is used** &rarr; Created both quantitative and qualitative metrics (latter use llm-as-judge), used multiple openAI models to compare evaluation outputs (the app has since moved to Claude Haiku 5.5), finetuted the system prompt based on learnings from the evaluation metrics, and reached final conclusions on evaluation performance and monitoring. See results [here](./notebooks/05_llm_evaluation.ipynb).
 - Interface
   - 0 points: No way to interact with the application at all
   - 1 point: Command line interface, a script, or a Jupyter notebook
@@ -178,7 +181,7 @@ If not, you can manually access it at:
 - Ingestion pipeline
   - 0 points: No ingestion
   - 1 point: Semi-automated ingestion of the dataset into the knowledge base, e.g., with a Jupyter notebook
-  - ✅ **2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)** &rarr; Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings via OpenAI, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
+  - ✅ **2 points: Automated ingestion with a Python script or a special tool (e.g., Mage, dlt, Airflow, Prefect)** &rarr; Fully automated Python script (`scripts/ingest.py`) that runs end-to-end without manual intervention: (1) downloads official USCIS PDFs from source, (2) extracts and parses Q&A pairs, (3) uses LLM to populate current officeholder data, (4) processes civics guide text, (5) generates embeddings locally via fastembed, and (6) uploads to Qdrant vector database. Single command execution: `python scripts/ingest.py`. See ingestion documentation [here](./documents/INGESTION.md).
 - Monitoring
   - 0 points: No monitoring
   - 1 point: User feedback is collected OR there's a monitoring dashboard.
@@ -190,7 +193,7 @@ If not, you can manually access it at:
 - Reproducibility
   - 0 points: No instructions on how to run the code, the data is missing, or it's unclear how to access it
   - 1 point: Some instructions are provided but are incomplete, OR instructions are clear and complete, the code works, but the data is missing
-  - ✅ **2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.** &rarr; The project includes a complete, step-by-step reproducibility guide covering environment setup, dependency installation, and configuration of external services (**OpenAI**, **Qdrant**, **Neon**). Sample pre-ingested data is provided in the `documents/` folder for immediate testing, while `scripts/ingest.py` can automatically rebuild the dataset from official USCIS sources. Database initialization is fully documented through the `schemas/` SQL files with explicit instructions for creating tables via the Neon SQL editor. All dependencies are pinned in `requirements.txt`, and a `.env.example` file specifies required environment variables. Together, these ensure the entire system can be reproduced locally without containerization and run exactly as described.
+  - ✅ **2 points: Instructions are clear, the dataset is accessible, it's easy to run the code, and it works. The versions for all dependencies are specified.** &rarr; The project includes a complete, step-by-step reproducibility guide covering environment setup, dependency installation, and configuration of external services (**Anthropic Claude API**, **Qdrant**, **Neon**). Sample pre-ingested data is provided in the `documents/` folder for immediate testing, while `scripts/ingest.py` can automatically rebuild the dataset from official USCIS sources. Database initialization is fully documented through the `schemas/` SQL files with explicit instructions for creating tables via the Neon SQL editor. All dependencies are pinned in `requirements.txt`, and a `.env.example` file specifies required environment variables. Together, these ensure the entire system can be reproduced locally without containerization and run exactly as described.
 - Best practices
   - [ ] Hybrid search: combining both text and vector search (at least evaluating it) (1 point)
   - [ ] Document re-ranking (1 point)
