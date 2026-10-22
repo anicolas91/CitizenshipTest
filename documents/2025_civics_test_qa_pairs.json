@@ -238,7 +238,7 @@
       "OH: Bernie Moreno",
       "OH: Jon Husted",
       "OK: James Lankford",
-      "OK: Markwayne Mullin",
+      "OK: Alan Armstrong",
       "OR: Ron Wyden",
       "OR: Jeff Merkley",
       "PA: John Fetterman",
@@ -247,7 +247,7 @@
       "RI: Jack Reed",
       "RI: Sheldon Whitehouse",
       "SC: Tim Scott",
-      "SC: Lindsey Graham",
+      "SC: Darline Graham",
       "SD: John Thune",
       "SD: Mike Rounds",
       "TN: Marsha Blackburn",
@@ -413,7 +413,6 @@
       "FL: Greg Steube",
       "FL: Scott Franklin",
       "FL: Byron Donalds",
-      "FL: Vacant",
       "FL: Brian Mast",
       "FL: Lois Frankel",
       "FL: Jared Moskowitz",
@@ -692,7 +691,6 @@
       "TX: Joaquin Castro",
       "TX: Chip Roy",
       "TX: Troy Nehls",
-      "TX: Vacant",
       "TX: Beth Van Duyne",
       "TX: Roger Williams",
       "TX: Brandon Gill",
@@ -817,8 +815,7 @@
     "answers": [
       "JD Vance",
       "J.D. Vance",
-      "James David Vance",
-      "Vance"
+      "James David Vance"
     ]
   },
   {
@@ -964,7 +961,7 @@
     "answers": [
       "John Roberts",
       "John G. Roberts Jr.",
-      "Roberts"
+      "John G. Roberts"
     ]
   },
   {

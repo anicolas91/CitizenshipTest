@@ -214,7 +214,7 @@
       "OH: Bernie Moreno",
       "OH: Jon Husted",
       "OK: James Lankford",
-      "OK: Markwayne Mullin",
+      "OK: Alan Armstrong",
       "OR: Ron Wyden",
       "OR: Jeff Merkley",
       "PA: John Fetterman",
@@ -223,7 +223,7 @@
       "RI: Jack Reed",
       "RI: Sheldon Whitehouse",
       "SC: Tim Scott",
-      "SC: Lindsey Graham",
+      "SC: Darline Graham",
       "SD: John Thune",
       "SD: Mike Rounds",
       "TN: Marsha Blackburn",
@@ -992,8 +992,7 @@
     "question": "What is the name of the Speaker of the House of Representatives now?",
     "answers": [
       "Mike Johnson",
-      "Michael Johnson",
-      "Johnson"
+      "Michael Johnson"
     ]
   },
   {
