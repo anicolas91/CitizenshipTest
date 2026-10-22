@@ -71,15 +71,15 @@ def add_reason_background_similarity(df):
     return df
 
 
-def run_llm_evaluation(df, model='gpt-4o-mini', temperature=0.5, delay=0.5):
+def run_llm_evaluation(df, model='claude-haiku-5-5', effort='medium', delay=0.5):
     """ 
-    Run llm-as-judge given a model and a temperature. Returns an updated df.
+    Run llm-as-judge given a model and an effort level. Returns an updated df.
     Note: internally we are populating via user prompt all the background information of that qna
     
     Args:
         df: DataFrame with feedback data
-        model: OpenAI model to use (default: gpt-4o-mini)
-        temperature: Temperature for LLM (default: 0.5)
+        model: Claude model to use (default: claude-haiku-5-5)
+        effort: Claude effort level (default: medium)
         delay: Seconds to wait between API calls to avoid rate limits (default: 0.5)
     
     Returns:
@@ -112,7 +112,7 @@ def run_llm_evaluation(df, model='gpt-4o-mini', temperature=0.5, delay=0.5):
                 system_prompt=LLM_JUDGE_SYSTEM_PROMPT,
                 user_prompt=llm_judge_user_prompt_formatted,
                 model=model,
-                temperature=temperature
+                effort=effort
             )
             
             # Check if LLM returned an error
@@ -166,7 +166,7 @@ def run_llm_evaluation(df, model='gpt-4o-mini', temperature=0.5, delay=0.5):
     # Print summary
     print(f"\n{'='*50}")
     print(f"✅ Completed {len(evaluations)} evaluations with {model}")
-    print(f"   Temperature: {temperature}")
+    print(f"   Effort: {effort}")
     print(f"   Delay: {delay}s per request")
     
     if errors:

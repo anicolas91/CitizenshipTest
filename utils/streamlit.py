@@ -41,12 +41,12 @@ US_LOCATIONS = [
 # - context_limit: Max documents to retrieve (2)
 # - score_threshold: Min similarity score (0.5)
 # - query_expansion: Expand queries with synonyms (False)
-# - temperature: LLM creativity level (0.5 = balanced)
+# - effort: Claude thinking depth (low = fastest/cheapest)
 RAG_CONFIG = {
     'context_limit': 4,
     'score_threshold': 0.3,
     'query_expansion': False,
-    'temperature': 0.5
+    'effort': 'low'
 }
 
 # USCIS Test Configuration by Version
@@ -150,7 +150,7 @@ def log_feedback(feedback_type):
         'system_prompt': llm_metadata.get('system_prompt', ''),
         'user_prompt': llm_metadata.get('user_prompt', ''),
         'model': llm_metadata.get('model', ''),
-        'llm_temperature': llm_metadata.get('temperature', 0.5),
+        'llm_temperature': None,  # Claude has no temperature setting; column kept for older rows
         'context': llm_metadata.get('context', ''),
         'context_limit': llm_metadata.get('context_limit', RAG_CONFIG['context_limit']),
         'score_threshold': llm_metadata.get('score_threshold', RAG_CONFIG['score_threshold']),

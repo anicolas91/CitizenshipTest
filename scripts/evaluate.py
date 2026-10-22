@@ -26,7 +26,7 @@ Usage:
     python scripts/evaluate.py --start-date 2025-10-16 --end-date 2025-10-17
     
     # Custom model settings
-    python scripts/evaluate.py --date 2025-10-16 --model gpt-4o-mini --temperature 0.5
+    python scripts/evaluate.py --date 2025-10-16 --model claude-haiku-5-5 --effort medium
 """
 import os
 import sys
@@ -83,15 +83,16 @@ def parse_args():
     parser.add_argument(
         '--model',
         type=str,
-        default='gpt-4o',
-        help='OpenAI model to use for LLM-as-judge evaluations (default: gpt-4o)'
+        default='claude-haiku-5-5',
+        help='Claude model to use for LLM-as-judge evaluations (default: claude-haiku-5-5)'
     )
     
     parser.add_argument(
-        '--temperature',
-        type=float,
-        default=0.2,
-        help='Temperature for LLM evaluation (default: 0.2)'
+        '--effort',
+        type=str,
+        default='medium',
+        choices=['low', 'medium', 'high', 'xhigh', 'max'],
+        help='Claude effort level for LLM evaluation (default: medium)'
     )
     
     parser.add_argument(
@@ -111,7 +112,7 @@ def main():
     start_date, end_date = get_date_filter(args)
     
     print(f"📅 Evaluating feedback from {start_date} to {end_date}")
-    print(f"🤖 Using model: {args.model} (temp={args.temperature}, delay={args.delay}s)")
+    print(f"🤖 Using model: {args.model} (effort={args.effort}, delay={args.delay}s)")
     print("-" * 60)
     
     # Get the database URL
@@ -159,7 +160,7 @@ def main():
 
     # 4. Run LLM-as-Judge for all qualitative metrics
     print("4️⃣ Running LLM-as-Judge evaluations...")
-    df = run_llm_evaluation(df, args.model, args.temperature, args.delay)
+    df = run_llm_evaluation(df, args.model, args.effort, args.delay)
 
     print("\n✅ Evaluation calculations complete!")
     

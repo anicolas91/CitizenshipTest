@@ -1,12 +1,12 @@
 from typing import List, Dict, Any
-from openai import OpenAI
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance,PointStruct
+from utils.rag import embed
 
 def create_qdrant_collection(
     client: QdrantClient,
     collection_name: str = "usa_civics_guide",
-    dimension_size: int = 1536,
+    dimension_size: int = 384,
     distance_metric: Distance = Distance.COSINE,
     recreate: bool = True  # Changed default to True
 ) -> bool:
@@ -16,7 +16,7 @@ def create_qdrant_collection(
     Args:
         client: QdrantClient instance
         collection_name: Name of the collection to create (default: "usa_civics_guide")
-        dimension_size: Vector dimension size (default: 1536 for text-embedding-3-small)
+        dimension_size: Vector dimension size (default: 384 for BAAI/bge-small-en-v1.5)
         distance_metric: Distance metric to use (default: COSINE)
         recreate: If True, delete existing collection and create new one (default: True)
         
@@ -31,7 +31,7 @@ def create_qdrant_collection(
         >>> print(f"Collection created: {created}")
         
     Note:
-        Default dimension size (1536) is optimized for OpenAI's text-embedding-3-small model.
+        Default dimension size (384) matches the BAAI/bge-small-en-v1.5 fastembed model.
         By default, this will delete and recreate the collection to avoid duplicates.
     """
     # Check if collection already exists
@@ -68,35 +68,31 @@ def create_qdrant_collection(
 
 def create_embedded_points(
     datapoints: List[Dict[str, Any]],
-    openai_client: OpenAI,
-    model: str = "text-embedding-3-small"
+    model: str = "BAAI/bge-small-en-v1.5"
 ) -> List[PointStruct]:
     """
     Create embedded points from datapoints for Qdrant vector storage.
     
-    Takes a list of datapoints with text content, generates embeddings using OpenAI's
-    API, and creates PointStruct objects ready for insertion into Qdrant.
+    Takes a list of datapoints with text content, generates embeddings locally
+    with fastembed, and creates PointStruct objects ready for insertion into Qdrant.
     
     Args:
         datapoints: List of dictionaries, each containing:
             - "uuid" (str or UUID): Unique identifier
             - "text" (str): Text content to embed
             - "page_no" (int): Page number reference
-        openai_client: OpenAI client instance for generating embeddings
-        model: OpenAI embedding model to use (default: "text-embedding-3-small")
+        model: fastembed embedding model to use (default: "BAAI/bge-small-en-v1.5")
         
     Returns:
         List[PointStruct]: List of Qdrant points ready for insertion
         
     Example:
-        >>> from openai import OpenAI
-        >>> client = OpenAI()
         >>> datapoints = [{"uuid": "123", "text": "Sample", "page_no": 1}]
-        >>> points = create_embedded_points(datapoints, client)
+        >>> points = create_embedded_points(datapoints)
         
     Raises:
         KeyError: If required keys are missing from datapoints
-        Exception: If OpenAI API call fails
+        Exception: If embedding fails
     """
     points = []
     
@@ -108,12 +104,8 @@ def create_embedded_points(
             page_text = datapoint['text']
 
             if page_text.strip():
-                # Get embedding from OpenAI
-                response = openai_client.embeddings.create(
-                    model=model,
-                    input=page_text
-                )
-                embedding = response.data[0].embedding
+                # Get embedding locally
+                embedding = embed([page_text], model=model)[0]
                 
                 points.append(PointStruct(
                     id=id,

@@ -571,7 +571,7 @@ def populate_missing_questions(qa_pairs: List[Dict[str, Any]]) -> List[Dict[str,
                 response = llm(
                     system_prompt="You are a helpful assistant that provides accurate, up-to-date information about US civics and government.",
                     user_prompt=user_prompt,
-                    temperature=0.5
+                    effort="high"  # long state-by-state lists need care to transcribe fully
                 )
 
                 # Parse and update answers

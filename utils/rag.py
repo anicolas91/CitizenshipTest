@@ -1,15 +1,16 @@
 import os
 import json
 from typing import Dict, Any
-from openai import OpenAI
+import anthropic
 from dotenv import load_dotenv
+from fastembed import TextEmbedding
 from qdrant_client import QdrantClient
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Initialize clients with API keys from .env
-openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+anthropic_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 qdrant_client = QdrantClient(
     url=os.getenv("QDRANT_URL"),
     api_key=os.getenv("QDRANT_API_KEY")
@@ -17,8 +18,27 @@ qdrant_client = QdrantClient(
 
 # Constants
 DEFAULT_COLLECTION = "usa_civics_guide"
-DEFAULT_EMBEDDING_MODEL = "text-embedding-3-small"
-DEFAULT_LLM_MODEL = "gpt-4o-mini"
+DEFAULT_EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"  # runs locally via fastembed, 384 dims
+DEFAULT_LLM_MODEL = "claude-haiku-5-5"
+DEFAULT_EFFORT = "low"  # Claude effort level: low | medium | high | xhigh | max
+
+# Embedding models are loaded once and cached (first load downloads the weights)
+_embedding_models: Dict[str, TextEmbedding] = {}
+
+
+def embed(texts, model: str = DEFAULT_EMBEDDING_MODEL):
+    """Embed a list of texts locally with fastembed. Returns a list of vectors."""
+    if model not in _embedding_models:
+        _embedding_models[model] = TextEmbedding(model)
+    return [vector.tolist() for vector in _embedding_models[model].embed(texts)]
+
+
+def parse_json_output(text: str) -> Dict[str, Any]:
+    """Parse a JSON object from the model output, tolerating ```json fences or stray text around it."""
+    start, end = text.find("{"), text.rfind("}")
+    if start == -1 or end == -1:
+        raise json.JSONDecodeError("No JSON object found", text, 0)
+    return json.loads(text[start:end + 1])
 
 
 def get_context(
@@ -36,7 +56,7 @@ def get_context(
     Args:
         question: The user's question to search for
         collection_name: Name of the Qdrant collection to search
-        embedding_model: OpenAI embedding model to use
+        embedding_model: fastembed embedding model to use
         limit: Number of top results to return
         score_threshold: Minimum similarity score (0-1) for results
         query_expansion: If True, expand query with related civics terms
@@ -57,11 +77,7 @@ def get_context(
         question = expand_query(question, expansion_terms)
     
     # Embed the question
-    embedding_response = openai_client.embeddings.create(
-        model=embedding_model,
-        input=question
-    )
-    question_embedding = embedding_response.data[0].embedding
+    question_embedding = embed([question], model=embedding_model)[0]
 
     # Search Qdrant for relevant pages
     search_results = qdrant_client.query_points(
@@ -88,7 +104,7 @@ def llm(
     system_prompt: str,
     user_prompt: str,
     model: str = DEFAULT_LLM_MODEL,
-    temperature: float = 0.3,
+    effort: str = DEFAULT_EFFORT,
 ) -> Dict[str, Any]:
     """
     Get an answer from the LLM using custom system and user prompts.
@@ -96,8 +112,8 @@ def llm(
     Args:
         system_prompt: The system message that defines the assistant's behavior and role
         user_prompt: The user message containing the question and any context
-        model: OpenAI model to use (default: gpt-4o-mini)
-        temperature: default is 0.3
+        model: Claude model to use (default: claude-haiku-5-5)
+        effort: Claude effort level, trades thinking depth for speed/cost (default: low)
     
     Returns:
         The LLM's parsed JSON output as a dict. If parsing fails, returns {"error": "..."}.
@@ -106,20 +122,21 @@ def llm(
         return {"error": "Both system_prompt and user_prompt are required"}
     
     try:
-        completion = openai_client.chat.completions.create(
+        response = anthropic_client.messages.create(
             model=model,
-            messages=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            response_format={"type": "json_object"},
-            temperature=temperature,
+            max_tokens=16000,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_prompt}],
+            output_config={"effort": effort},
         )
 
-        response_text = completion.choices[0].message.content
+        if response.stop_reason == "refusal":
+            return {"error": "Model declined to answer"}
+
+        response_text = "".join(block.text for block in response.content if block.type == "text")
 
         try:
-            data = json.loads(response_text)
+            data = parse_json_output(response_text)
         except json.JSONDecodeError as e:
             return {
                 "error": f"Failed to parse JSON response: {e}",
@@ -144,7 +161,7 @@ def rag(
     context_limit: int = 2,
     score_threshold: float = 0.5,
     query_expansion: bool = False,
-    temperature: float = 0.5
+    effort: str = DEFAULT_EFFORT
 ) -> Dict[str, Any]:
     """
     Complete RAG pipeline for Q&A with context retrieval.
@@ -156,17 +173,17 @@ def rag(
         answers: Available answer choices
         user_state: Current state information about the user
         user_answer: The user's submitted answer
-        model: OpenAI model to use
+        model: Claude model to use
         collection_name: Qdrant collection name
         context_limit: Number of context chunks to retrieve
         score_threshold: Minimum similarity score (0-1) for results
         query_expansion: If True, expand query with related civics terms
-        temperature: default is 0.3 
+        effort: Claude effort level (default: low)
     
     Returns:
         Dict containing:
             - LLM response (parsed JSON)
-            - metadata: system_prompt, user_prompt, model, temperature, context
+            - metadata: system_prompt, user_prompt, model, effort, context
     Example:
         >>> user_prompt_template = "Question: {question}\nAnswers: {answers}\n..."
         >>> result = rag(
@@ -198,14 +215,14 @@ def rag(
         )
         
         # Send to LLM (llm function already parses JSON output, and it has 'score','reason', 'background_info', that sort of thing)
-        llm_response=llm(system_prompt, qna_user_prompt, model, temperature)
+        llm_response=llm(system_prompt, qna_user_prompt, model, effort)
 
         # Add metadata to response
         llm_response['metadata'] = {
             'system_prompt': system_prompt,
             'user_prompt': qna_user_prompt,
             'model': model,
-            'temperature': temperature,
+            'effort': effort,
             'context': context,
             'context_limit': context_limit,
             'score_threshold': score_threshold,
@@ -221,7 +238,7 @@ def rag(
                 'system_prompt': system_prompt,
                 'user_prompt': user_prompt,  # Original template, not formatted
                 'model': model,
-                'temperature': temperature,
+                'effort': effort,
                 'context': context if 'context' in locals() else None,
                 'context_limit': context_limit,
                 'score_threshold': score_threshold,
@@ -235,7 +252,7 @@ def rag(
                 'system_prompt': system_prompt,
                 'user_prompt': qna_user_prompt if 'qna_user_prompt' in locals() else user_prompt,
                 'model': model,
-                'temperature': temperature,
+                'effort': effort,
                 'context': context if 'context' in locals() else None,
                 'context_limit': context_limit,
                 'score_threshold': score_threshold,

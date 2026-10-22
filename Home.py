@@ -8,7 +8,7 @@ import streamlit as st
 # Set all secrets as environment variables (skip nested dicts like [database] because those come straight from st)
 for key, value in st.secrets.items():
     if isinstance(value, str):
-        os.environ[key] = value # we are basically setting as env vars anything related to openai and qdrant
+        os.environ[key] = value # we are basically setting as env vars anything related to anthropic and qdrant
 
 # Import from your existing utils
 from utils.rag import rag

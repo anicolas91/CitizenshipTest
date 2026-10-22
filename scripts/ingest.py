@@ -23,7 +23,6 @@ DOCUMENTS_DIR = PROJECT_ROOT / 'documents'
 sys.path.append(str(PROJECT_ROOT))
 
 from dotenv import load_dotenv
-from openai import OpenAI
 from qdrant_client import QdrantClient
 
 from utils.ingestion import (
@@ -36,8 +35,8 @@ from utils.qdrant import create_qdrant_collection, create_embedded_points
 
 # Configuration
 COLLECTION_NAME = 'usa_civics_guide'
-EMBEDDING_MODEL = "text-embedding-3-small"
-EMBEDDING_DIMENSION = 1536  # Matches text-embedding-3-small
+EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"  # local fastembed model
+EMBEDDING_DIMENSION = 384  # Matches BAAI/bge-small-en-v1.5
 
 
 def main():
@@ -57,7 +56,6 @@ def main():
     # Initialize clients
     try:
         print("\n[Setup] Initializing API clients...")
-        openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         qdrant_client = QdrantClient(
             url=os.getenv("QDRANT_URL"),
             api_key=os.getenv("QDRANT_API_KEY")
@@ -65,7 +63,7 @@ def main():
         print("✓ Clients initialized successfully")
     except Exception as e:
         print(f"✗ Error initializing clients: {str(e)}")
-        print("  Make sure your .env file contains OPENAI_API_KEY, QDRANT_URL, and QDRANT_API_KEY")
+        print("  Make sure your .env file contains ANTHROPIC_API_KEY, QDRANT_URL, and QDRANT_API_KEY")
         sys.exit(1)
     
     try:
@@ -109,7 +107,6 @@ def main():
         print(f"  Generating embeddings using {EMBEDDING_MODEL}...")
         points = create_embedded_points(
             datapoints=datapoints,
-            openai_client=openai_client,
             model=EMBEDDING_MODEL
         )
         
