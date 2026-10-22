@@ -269,10 +269,10 @@ def get_officeholder(qid: str) -> str:
     return holder_id
 
 
-def get_current_governors() -> List[str]:
+def get_governors_by_state() -> Dict[str, List[str]]:
     """
     Scrape Wikipedia for current US governors (states and territories).
-    Returns a list of strings in format "STATE/TERRITORY: Governor Name"
+    Returns a dict mapping state/territory name to [governor name] (empty dict on failure).
     """
     
     url = "https://en.wikipedia.org/wiki/List_of_current_United_States_governors"
@@ -281,12 +281,12 @@ def get_current_governors() -> List[str]:
     try:
         r = requests.get(url, headers=headers, timeout=10)
         if r.status_code != 200:
-            return [f"Error: {r.status_code}"]
-    except requests.exceptions.RequestException as e:
-        return [f"Request error: {str(e)}"]
+            return {}
+    except requests.exceptions.RequestException:
+        return {}
     
     soup = BeautifulSoup(r.content, 'html.parser')
-    governors = []
+    governors = {}
     
     # Find all tables on the page
     tables = soup.find_all('table', {'class': 'wikitable'})
@@ -305,7 +305,7 @@ def get_current_governors() -> List[str]:
                 governor = clean_text(cols[2].get_text(strip=True))
                 
                 if state and governor:
-                    governors.append(f"{state}: {governor}")
+                    governors[state] = [governor]
     
     # Find the "Territory governors" heading and get the next table
     territory_heading = soup.find(id="Territory_governors")
@@ -325,15 +325,26 @@ def get_current_governors() -> List[str]:
                     governor = clean_text(cols[2].get_text(strip=True))
                     
                     if territory and governor:
-                        governors.append(f"{territory}: {governor}")
+                        governors[territory] = [governor]
     
     return governors
 
 
-def get_current_senators() -> List[str]:
+def get_current_governors() -> List[str]:
+    """
+    Scrape Wikipedia for current US governors (states and territories).
+    Returns a list of strings in format "STATE/TERRITORY: Governor Name"
+    """
+    governors = get_governors_by_state()
+    if not governors:
+        return ["Error: could not retrieve governors"]
+    return [f"{state}: {', '.join(names)}" for state, names in governors.items()]
+
+
+def get_senators_by_state() -> Dict[str, List[str]]:
     """
     Scrape Wikipedia for current US senators.
-    Returns a list of strings in format "STATE: Senator1, Senator2"
+    Returns a dict mapping state name to its senators (empty dict on failure).
     """
     url = "https://en.wikipedia.org/wiki/List_of_current_United_States_senators"
     headers = {"User-Agent": "CitizenshipTestApp/0.1 (anicol11@asu.edu)"}
@@ -341,9 +352,9 @@ def get_current_senators() -> List[str]:
     try:
         r = requests.get(url, headers=headers, timeout=10)
         if r.status_code != 200:
-            return [f"Error: {r.status_code}"]
-    except requests.exceptions.RequestException as e:
-        return [f"Request error: {str(e)}"]
+            return {}
+    except requests.exceptions.RequestException:
+        return {}
     
     soup = BeautifulSoup(r.content, 'html.parser')
     senators_by_state = {}
@@ -377,19 +388,24 @@ def get_current_senators() -> List[str]:
                         senators_by_state[current_state] = []
                     senators_by_state[current_state].append(senator)
     
-    # Format as sorted list
-    result = []
-    for state in sorted(senators_by_state.keys()):
-        senators = ", ".join(senators_by_state[state])
-        result.append(f"{state}: {senators}")
-    
-    return result
+    return senators_by_state
 
 
-def get_current_representatives() -> List[str]:
+def get_current_senators() -> List[str]:
+    """
+    Scrape Wikipedia for current US senators.
+    Returns a list of strings in format "STATE: Senator1, Senator2"
+    """
+    senators_by_state = get_senators_by_state()
+    if not senators_by_state:
+        return ["Error: could not retrieve senators"]
+    return [f"{state}: {', '.join(senators_by_state[state])}" for state in sorted(senators_by_state)]
+
+
+def get_representatives_by_state() -> Dict[str, List[str]]:
     """
     Scrape Wikipedia for current US representatives.
-    Returns a list of strings in format "STATE: Rep1, Rep2, Rep3..."
+    Returns a dict mapping state name to its representatives (empty dict on failure).
     """
     
     url = "https://en.wikipedia.org/wiki/List_of_current_United_States_representatives"
@@ -398,9 +414,9 @@ def get_current_representatives() -> List[str]:
     try:
         r = requests.get(url, headers=headers, timeout=10)
         if r.status_code != 200:
-            return [f"Error: {r.status_code}"]
-    except requests.exceptions.RequestException as e:
-        return [f"Request error: {str(e)}"]
+            return {}
+    except requests.exceptions.RequestException:
+        return {}
     
     soup = BeautifulSoup(r.content, 'html.parser')
     reps_by_state = {}
@@ -442,13 +458,69 @@ def get_current_representatives() -> List[str]:
                         reps_by_state[state] = []
                     reps_by_state[state].append(member_text)
     
-    # Format as sorted list
-    result = []
-    for state in sorted(reps_by_state.keys()):
-        reps = ", ".join(reps_by_state[state])
-        result.append(f"{state}: {reps}")
-    
-    return result
+    return reps_by_state
+
+
+def get_current_representatives() -> List[str]:
+    """
+    Scrape Wikipedia for current US representatives.
+    Returns a list of strings in format "STATE: Rep1, Rep2, Rep3..."
+    """
+    reps_by_state = get_representatives_by_state()
+    if not reps_by_state:
+        return ["Error: could not retrieve representatives"]
+    return [f"{state}: {', '.join(reps_by_state[state])}" for state in sorted(reps_by_state)]
+
+
+# Two-letter abbreviations for the 50 states, DC and the 5 inhabited territories
+STATE_ABBREVIATIONS = {
+    "Alabama": "AL", "Alaska": "AK", "Arizona": "AZ", "Arkansas": "AR", "California": "CA",
+    "Colorado": "CO", "Connecticut": "CT", "Delaware": "DE", "Florida": "FL", "Georgia": "GA",
+    "Hawaii": "HI", "Idaho": "ID", "Illinois": "IL", "Indiana": "IN", "Iowa": "IA",
+    "Kansas": "KS", "Kentucky": "KY", "Louisiana": "LA", "Maine": "ME", "Maryland": "MD",
+    "Massachusetts": "MA", "Michigan": "MI", "Minnesota": "MN", "Mississippi": "MS",
+    "Missouri": "MO", "Montana": "MT", "Nebraska": "NE", "Nevada": "NV", "New Hampshire": "NH",
+    "New Jersey": "NJ", "New Mexico": "NM", "New York": "NY", "North Carolina": "NC",
+    "North Dakota": "ND", "Ohio": "OH", "Oklahoma": "OK", "Oregon": "OR", "Pennsylvania": "PA",
+    "Rhode Island": "RI", "South Carolina": "SC", "South Dakota": "SD", "Tennessee": "TN",
+    "Texas": "TX", "Utah": "UT", "Vermont": "VT", "Virginia": "VA", "Washington": "WA",
+    "West Virginia": "WV", "Wisconsin": "WI", "Wyoming": "WY",
+    "District of Columbia": "DC", "Puerto Rico": "PR", "Guam": "GU", "American Samoa": "AS",
+    "U.S. Virgin Islands": "VI", "Northern Mariana Islands": "MP",
+}
+NON_STATES = ["DC", "PR", "GU", "AS", "VI", "MP"]
+
+
+def build_state_answers(
+    names_by_state: Dict[str, List[str]],
+    overrides: Dict[str, str]
+) -> List[str] | None:
+    """
+    Build "XX: Name" answers for a state-dependent question straight from scraped data.
+
+    Args:
+        names_by_state: Scraped officeholders, keyed by full state/territory name
+        overrides: Fixed answers by abbreviation (e.g. {"DC": "no Senators"}), used
+            for jurisdictions that don't have the office
+
+    Returns:
+        Answers sorted by abbreviation, or None if the scrape is missing any of the
+        50 states (so the caller can fall back to the LLM).
+    """
+    by_abbreviation = {}
+    for state, names in names_by_state.items():
+        abbreviation = STATE_ABBREVIATIONS.get(state)
+        names = [name for name in names if name.lower() != "vacant"]
+        if abbreviation and names:
+            by_abbreviation[abbreviation] = names
+    by_abbreviation.update({abbreviation: [text] for abbreviation, text in overrides.items()})
+
+    missing_states = [a for a in STATE_ABBREVIATIONS.values() if a not in NON_STATES and a not in by_abbreviation]
+    if missing_states:
+        print(f"  ✗ Scraped data is missing {missing_states}, falling back to LLM")
+        return None
+
+    return [f"{abbreviation}: {name}" for abbreviation in sorted(by_abbreviation) for name in by_abbreviation[abbreviation]]
 
 def get_current_officials_summary() -> str:
     """
@@ -545,6 +617,17 @@ def populate_missing_questions(qa_pairs: List[Dict[str, Any]]) -> List[Dict[str,
     # Get current officeholder references
     references = get_current_officials_summary()
 
+    # State-by-state lists are built straight from the scraped data, since the LLM
+    # tends to drop a few names when transcribing hundreds of entries.
+    # (question keyword, scraper, answers for jurisdictions without the office)
+    no_senators = {abbreviation: "no Senators" for abbreviation in NON_STATES}
+    no_representatives = {abbreviation: "no voting Representatives" for abbreviation in NON_STATES}
+    state_list_questions = [
+        ("senators now", get_senators_by_state, no_senators),
+        ("name your u.s. representative", get_representatives_by_state, no_representatives),
+        ("governor of your state", get_governors_by_state, {"DC": "no Governor"}),
+    ]
+
     for qa_pair in qa_pairs:
         question = qa_pair["question"]
         
@@ -558,6 +641,15 @@ def populate_missing_questions(qa_pairs: List[Dict[str, Any]]) -> List[Dict[str,
         if any(keyword in answer for keyword in placeholder_keywords):
             print(f"Variable response found, extracting latest answer for:")
             print(f"  Question: {question}")
+
+            state_answers = None
+            for keyword, scraper, overrides in state_list_questions:
+                if keyword in question.lower():
+                    state_answers = build_state_answers(scraper(), overrides)
+            if state_answers:
+                qa_pair["answers"] = state_answers
+                print(f"  ✓ Updated with {len(state_answers)} answer(s) from scraped data\n")
+                continue
 
             # Setup prompt with current context
             user_prompt = CIVICS_QA_UPDATING_PROMPT.format(
