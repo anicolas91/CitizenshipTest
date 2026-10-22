@@ -421,7 +421,8 @@ def get_current_representatives() -> List[str]:
         rows = target_table.find_all('tr')[1:]  # Skip header row
         
         # Pattern to match valid district entries: "State Number" or "State at-large"
-        district_pattern = re.compile(r'^[A-Z][a-z]+(\s[A-Z][a-z]+)*\s+(\d+|at-large)$')
+        # (Wikipedia sometimes renders these without a space, e.g. "Alabama1")
+        district_pattern = re.compile(r'^([A-Z][a-z]+(?:\s[A-Z][a-z]+)*)\s*(\d+|at-large)$')
         
         for row in rows:
             cols = row.find_all(['td', 'th'])
@@ -432,9 +433,10 @@ def get_current_representatives() -> List[str]:
                 member_text = clean_text(cols[1].get_text(strip=True))
                 
                 # Only process rows that match the district pattern
-                if district_pattern.match(district_text) and member_text:
+                district_match = district_pattern.match(district_text)
+                if district_match and member_text:
                     # Extract state name from district column
-                    state = ' '.join(district_text.split()[:-1])  # Everything except the last word
+                    state = district_match.group(1)
                     
                     if state not in reps_by_state:
                         reps_by_state[state] = []
