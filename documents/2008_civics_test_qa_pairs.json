@@ -828,8 +828,8 @@
   {
     "question": "Who is the Chief Justice of the United States now?",
     "answers": [
-      "John G. Roberts Jr.",
       "John Roberts",
+      "John G. Roberts Jr.",
       "Roberts"
     ]
   },
@@ -992,7 +992,8 @@
     "question": "What is the name of the Speaker of the House of Representatives now?",
     "answers": [
       "Mike Johnson",
-      "Michael Johnson"
+      "Michael Johnson",
+      "Johnson"
     ]
   },
   {
